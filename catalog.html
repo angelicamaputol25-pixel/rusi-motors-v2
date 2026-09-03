@@ -1,0 +1,1848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RUSI Motors – Motorcycle Catalog</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ── RESET & BASE ────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --red:       #E63946;
+  --red-dark:  #c1121f;
+  --red-glow:  rgba(230,57,70,0.25);
+  --bg:        #060709;
+  --bg-card:   #0E1117;
+  --bg-hover:  #161C26;
+  --border:    rgba(230,57,70,0.15);
+  --gold:      #FFD700;
+  --green:     #00FF88;
+  --blue:      #00B4D8;
+  --text:      #F0F2F5;
+  --muted:     #5A637A;
+  --secondary: #8B92A5;
+  --radius:    12px;
+  --transition: all 0.25s cubic-bezier(.4,0,.2,1);
+}
+
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(230,57,70,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,57,70,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--red-dark); border-radius: 4px; }
+
+/* ── TOP NAV ─────────────────────────────────────────────── */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(6,7,9,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.nav-logo-icon {
+  width: 38px; height: 38px;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 0 16px var(--red-glow);
+}
+
+.nav-logo-text {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--red);
+  letter-spacing: 3px;
+  text-shadow: 0 0 12px var(--red-glow);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--secondary);
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+
+.nav-links a:hover { color: var(--red); }
+.nav-links a.active { color: var(--red); }
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-nav {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+
+.btn-nav-outline {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+}
+.btn-nav-outline:hover { border-color: var(--red); color: var(--red); }
+
+.btn-nav-solid {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  border: none;
+  color: #fff;
+  box-shadow: 0 4px 14px var(--red-glow);
+}
+.btn-nav-solid:hover { transform: translateY(-1px); box-shadow: 0 6px 20px var(--red-glow); }
+
+/* ── HERO ─────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 3rem 2rem;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 60% 50%, rgba(230,57,70,0.12) 0%, transparent 70%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(230,57,70,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(230,57,70,0.06) 1px, transparent 1px);
+  background-size: 25px 25px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-left {}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(230,57,70,0.1);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+
+.hero-tag::before { content: '◆'; font-size: 0.5rem; }
+
+.hero-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.hero-title span { color: var(--red); text-shadow: 0 0 30px var(--red-glow); }
+
+.hero-desc {
+  color: var(--secondary);
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+  max-width: 460px;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.hero-stat-val {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--red);
+}
+
+.hero-stat-lbl {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.hero-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-moto {
+  font-size: 10rem;
+  filter: drop-shadow(0 0 40px rgba(230,57,70,0.6));
+  animation: heroFloat 3s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%,100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-15px) rotate(-3deg); }
+}
+
+.hero-ring {
+  position: absolute;
+  width: 280px; height: 280px;
+  border: 1px solid rgba(230,57,70,0.15);
+  border-radius: 50%;
+}
+
+.hero-ring:nth-child(2) {
+  width: 360px; height: 360px;
+  border-color: rgba(230,57,70,0.08);
+  animation: ringRotate 8s linear infinite;
+}
+
+@keyframes ringRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── CATALOG SECTION ─────────────────────────────────────── */
+.catalog-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Filter bar */
+.filter-bar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+.filter-bar-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  color: var(--red);
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.filter-btn {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(230,57,70,0.15);
+  border-radius: 4px;
+  color: var(--secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+
+.filter-btn:hover { background: rgba(230,57,70,0.08); color: var(--red); border-color: var(--red); }
+.filter-btn.active { background: rgba(230,57,70,0.12); color: var(--red); border-color: var(--red); }
+
+.filter-right {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.search-wrap {
+  position: relative;
+}
+
+.search-input {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(230,57,70,0.2);
+  border-radius: 4px;
+  padding: 0.45rem 0.8rem 0.45rem 2.2rem;
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.83rem;
+  font-weight: 500;
+  outline: none;
+  width: 200px;
+  transition: var(--transition);
+}
+
+.search-input:focus { border-color: var(--red); box-shadow: 0 0 0 2px var(--red-glow); }
+.search-input::placeholder { color: var(--muted); }
+
+.search-icon {
+  position: absolute;
+  left: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  color: var(--secondary);
+}
+
+.price-filter select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(230,57,70,0.2);
+  border-radius: 4px;
+  padding: 0.4rem 0.7rem;
+  color: var(--text);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  outline: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.price-filter select:focus { border-color: var(--red); }
+
+.results-count {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+}
+
+.results-count span { color: var(--red); font-weight: 700; }
+
+/* ── MOTORCYCLE GRID ─────────────────────────────────────── */
+.moto-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ── MOTORCYCLE CARD ─────────────────────────────────────── */
+.moto-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: var(--transition);
+  position: relative;
+  cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+.moto-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.moto-card:hover {
+  border-color: rgba(230,57,70,0.4);
+  box-shadow: 0 0 30px rgba(230,57,70,0.12), 0 8px 32px rgba(0,0,0,0.5);
+  transform: translateY(-4px);
+}
+
+.moto-card:hover::before { opacity: 1; }
+
+/* Status badge on card */
+.card-status {
+  position: absolute;
+  top: 12px; right: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+  z-index: 2;
+}
+
+.status-available { background: rgba(0,255,136,0.15); color: var(--green); border: 1px solid rgba(0,255,136,0.3); }
+.status-limited   { background: rgba(255,184,0,0.15);  color: #FFB800;     border: 1px solid rgba(255,184,0,0.3); }
+.status-out       { background: rgba(230,57,70,0.15);  color: var(--red);  border: 1px solid rgba(230,57,70,0.3); }
+.status-new       { background: rgba(0,180,216,0.15);  color: var(--blue); border: 1px solid rgba(0,180,216,0.3); }
+
+/* Compare checkbox */
+.card-compare {
+  position: absolute;
+  top: 12px; left: 12px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.card-compare input[type="checkbox"] {
+  accent-color: var(--red);
+  width: 14px; height: 14px;
+  cursor: pointer;
+}
+
+.card-compare:hover { color: var(--red); }
+
+/* Motorcycle image area */
+.card-img {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse 70% 70% at 50% 60%, rgba(230,57,70,0.06) 0%, transparent 80%);
+  position: relative;
+  overflow: hidden;
+  font-size: 6rem;
+  transition: var(--transition);
+}
+
+.moto-card:hover .card-img-emoji { filter: drop-shadow(0 0 20px rgba(230,57,70,0.6)); transform: scale(1.05); }
+
+.card-img-emoji { transition: var(--transition); display: block; }
+
+/* Category tag on image */
+.card-category {
+  position: absolute;
+  bottom: 10px; left: 12px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+  background: rgba(6,7,9,0.7);
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+}
+
+/* Card body */
+.card-body { padding: 1.1rem 1.25rem; }
+
+.card-model {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 0.25rem;
+  line-height: 1.3;
+}
+
+.card-tagline {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 0.85rem;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Spec chips */
+.card-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.spec-chip {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 3px;
+  padding: 2px 7px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--secondary);
+}
+
+.spec-chip.highlight { border-color: rgba(230,57,70,0.25); color: var(--red); background: rgba(230,57,70,0.06); }
+
+/* Color swatches */
+.card-colors {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-colors-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.color-swatch {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.color-swatch:hover { transform: scale(1.3); border-color: rgba(255,255,255,0.4); }
+
+/* Price row */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(230,57,70,0.08);
+  padding-top: 0.85rem;
+}
+
+.card-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--red);
+  text-shadow: 0 0 10px var(--red-glow);
+}
+
+.card-price-label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  margin-top: 1px;
+}
+
+.card-actions { display: flex; gap: 0.4rem; }
+
+.btn-card {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 0.4rem 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  clip-path: polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%);
+}
+
+.btn-details {
+  background: rgba(230,57,70,0.08);
+  border: 1px solid var(--border);
+  color: var(--secondary);
+}
+.btn-details:hover { background: rgba(230,57,70,0.15); color: var(--red); border-color: var(--red); }
+
+.btn-inquire {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: #fff;
+  box-shadow: 0 2px 10px var(--red-glow);
+}
+.btn-inquire:hover { transform: translateY(-1px); box-shadow: 0 4px 16px var(--red-glow); }
+
+/* ── COMPARE BAR ─────────────────────────────────────────── */
+.compare-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(14,17,23,0.97);
+  border-top: 2px solid var(--red);
+  backdrop-filter: blur(12px);
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  box-shadow: 0 -8px 30px rgba(230,57,70,0.15);
+}
+
+.compare-bar.show { transform: translateY(0); }
+
+.compare-bar-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 2px;
+  flex-shrink: 0;
+}
+
+.compare-items {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+
+.compare-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(230,57,70,0.08);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.4rem 0.75rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.compare-item button {
+  background: none;
+  border: none;
+  color: var(--red);
+  cursor: pointer;
+  font-size: 0.8rem;
+  line-height: 1;
+  padding: 0;
+  transition: var(--transition);
+}
+
+.compare-item button:hover { color: #ff4444; }
+
+.compare-empty {
+  width: 160px;
+  height: 34px;
+  border: 1px dashed rgba(230,57,70,0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.compare-actions { display: flex; gap: 0.75rem; flex-shrink: 0; }
+
+.btn-compare-now {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+  box-shadow: 0 4px 14px var(--red-glow);
+}
+.btn-compare-now:hover { box-shadow: 0 6px 20px var(--red-glow); }
+.btn-compare-now:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.btn-clear-compare {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.5rem 0.85rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.btn-clear-compare:hover { color: var(--red); border-color: var(--red); }
+
+/* ── DETAIL MODAL ────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.modal-overlay.show { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid rgba(230,57,70,0.3);
+  border-top: 2px solid var(--red);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 780px;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.25s ease;
+  box-shadow: 0 0 60px rgba(230,57,70,0.2), 0 20px 60px rgba(0,0,0,0.7);
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+}
+.modal-overlay.show .modal { transform: translateY(0) scale(1); }
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(230,57,70,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(230,57,70,0.04);
+}
+
+.modal-header h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 2px;
+}
+
+.modal-close {
+  background: rgba(230,57,70,0.08);
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  cursor: pointer;
+  width: 32px; height: 32px;
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+.modal-close:hover { color: var(--red); border-color: var(--red); }
+
+.modal-body { padding: 1.5rem; }
+
+.modal-hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-img {
+  background: radial-gradient(ellipse at center, rgba(230,57,70,0.1) 0%, transparent 70%);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7rem;
+  height: 200px;
+}
+
+.modal-info {}
+
+.modal-model {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+  margin-bottom: 0.4rem;
+}
+
+.modal-tagline {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.modal-price {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--red);
+  text-shadow: 0 0 20px var(--red-glow);
+  margin-bottom: 0.25rem;
+}
+
+.modal-price-note {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'Rajdhani', sans-serif;
+  margin-bottom: 1rem;
+}
+
+.modal-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.modal-badge {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.badge-available { background: rgba(0,255,136,0.1); color: var(--green); border: 1px solid rgba(0,255,136,0.2); }
+.badge-new       { background: rgba(0,180,216,0.1); color: var(--blue);  border: 1px solid rgba(0,180,216,0.2); }
+.badge-best      { background: rgba(255,215,0,0.1); color: var(--gold);  border: 1px solid rgba(255,215,0,0.2); }
+
+/* Spec table */
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.spec-table tr { border-bottom: 1px solid rgba(230,57,70,0.06); }
+.spec-table td {
+  padding: 0.6rem 0.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+}
+.spec-table td:first-child {
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.72rem;
+  width: 40%;
+}
+.spec-table td:last-child { color: var(--text); }
+
+/* Modal colors */
+.modal-colors { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1.25rem; }
+.modal-colors-label { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.color-btn {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.color-btn:hover, .color-btn.active { border-color: var(--red); transform: scale(1.2); box-shadow: 0 0 8px var(--red-glow); }
+
+.modal-actions { display: flex; gap: 0.75rem; }
+
+.btn-full {
+  flex: 1;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition);
+  clip-path: polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+}
+
+.btn-primary-full {
+  background: linear-gradient(135deg, var(--red), var(--red-dark));
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px var(--red-glow);
+}
+.btn-primary-full:hover { transform: translateY(-2px); box-shadow: 0 8px 24px var(--red-glow); }
+
+.btn-outline-full {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+}
+.btn-outline-full:hover { border-color: var(--red); color: var(--red); background: rgba(230,57,70,0.05); }
+
+/* ── COMPARE MODAL ───────────────────────────────────────── */
+.compare-modal { max-width: 900px; }
+
+.compare-grid {
+  display: grid;
+  gap: 0;
+}
+
+.compare-row {
+  display: grid;
+  gap: 1px;
+  background: rgba(230,57,70,0.06);
+}
+
+.compare-cell {
+  padding: 0.65rem 1rem;
+  background: var(--bg-card);
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.85rem;
+}
+
+.compare-cell.header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  color: var(--red);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(230,57,70,0.05);
+}
+
+.compare-cell.label {
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(255,255,255,0.01);
+}
+
+/* ── EMPTY STATE ─────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 4rem 1rem;
+  grid-column: 1 / -1;
+}
+.empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+.empty-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; color: var(--red); letter-spacing: 2px; margin-bottom: 0.5rem; }
+.empty-sub { font-family: 'Rajdhani', sans-serif; color: var(--muted); }
+
+/* ── FOOTER ──────────────────────────────────────────────── */
+.footer {
+  margin-top: 4rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 2rem;
+  text-align: center;
+}
+
+.footer-logo { font-family: 'Orbitron', sans-serif; font-size: 1.5rem; font-weight: 900; color: var(--red); letter-spacing: 4px; margin-bottom: 0.5rem; text-shadow: 0 0 20px var(--red-glow); }
+.footer-sub { font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+
+/* ── TOAST ───────────────────────────────────────────────── */
+.toast-container { position: fixed; top: 1rem; right: 1rem; z-index: 9999; display: flex; flex-direction: column; gap: 0.5rem; pointer-events: none; }
+.toast { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 4px; padding: 0.75rem 1rem; min-width: 240px; display: flex; align-items: center; gap: 0.65rem; box-shadow: 0 4px 20px rgba(0,0,0,0.4); pointer-events: all; animation: toastIn 0.3s ease forwards; font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--text); clip-path: polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px)); }
+.toast.removing { animation: toastOut 0.3s ease forwards; }
+@keyframes toastIn  { from { opacity:0;transform:translateX(20px); } to { opacity:1;transform:translateX(0); } }
+@keyframes toastOut { from { opacity:1;transform:translateX(0); }    to { opacity:0;transform:translateX(20px); } }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-content { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-title { font-size: 2rem; }
+  .nav-links { display: none; }
+  .modal-hero { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .filter-bar { flex-direction: column; align-items: flex-start; }
+  .compare-bar { flex-direction: column; gap: 0.75rem; }
+  .moto-grid { grid-template-columns: 1fr; }
+  .topnav { padding: 0 1rem; }
+  .hero { padding: 2rem 1rem; }
+  .catalog-section { padding: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ TOP NAV ═══════════════════ -->
+<nav class="topnav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">🏍️</div>
+    <span class="nav-logo-text">RUSI</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">CATALOG</a></li>
+    <li><a href="#bestsellers">BEST SELLERS</a></li>
+    <li><a href="#new-arrivals">NEW ARRIVALS</a></li>
+    <li><a href="#compare">COMPARE</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="index.html" class="btn-nav btn-nav-outline">STAFF LOGIN</a>
+    <a href="dashboard.html" class="btn-nav btn-nav-solid">DASHBOARD</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-tag">RUSI MOTORS PHILIPPINES</div>
+      <h1 class="hero-title">
+        RIDE THE<br/>
+        <span>FUTURE.</span>
+      </h1>
+      <p class="hero-desc">
+        Explore our complete lineup of high-performance motorcycles.
+        Built for Filipinos. Trusted since 1970. Find your perfect ride today.
+      </p>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">20+</div>
+          <div class="hero-stat-lbl">Models Available</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">500+</div>
+          <div class="hero-stat-lbl">Dealerships</div>
+        </div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val">1M+</div>
+          <div class="hero-stat-lbl">Satisfied Riders</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-ring"></div>
+      <div class="hero-ring"></div>
+      <div class="hero-moto">🏍️</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ CATALOG ═══════════════════ -->
+<section class="catalog-section" id="catalog">
+
+  <!-- Filter Bar -->
+  <div class="filter-bar">
+    <span class="filter-bar-title">◆ FILTER</span>
+    <div class="filter-group" id="category-filters">
+      <button class="filter-btn active" data-cat="all">ALL MODELS</button>
+      <button class="filter-btn" data-cat="Underbone">UNDERBONE</button>
+      <button class="filter-btn" data-cat="Scooter">SCOOTER</button>
+      <button class="filter-btn" data-cat="Sport">SPORT</button>
+      <button class="filter-btn" data-cat="Trail">TRAIL / ADV</button>
+      <button class="filter-btn" data-cat="Big Bike">BIG BIKE</button>
+      <button class="filter-btn" data-cat="Electric">ELECTRIC</button>
+    </div>
+    <div class="filter-right">
+      <div class="price-filter">
+        SORT:
+        <select id="sort-select">
+          <option value="default">DEFAULT</option>
+          <option value="price-asc">PRICE: LOW → HIGH</option>
+          <option value="price-desc">PRICE: HIGH → LOW</option>
+          <option value="engine-asc">ENGINE: LOW → HIGH</option>
+          <option value="name-asc">NAME: A → Z</option>
+        </select>
+      </div>
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" id="catalog-search" placeholder="SEARCH MODEL…"/>
+      </div>
+      <span class="results-count">SHOWING <span id="results-num">0</span> MODELS</span>
+    </div>
+  </div>
+
+  <!-- Motorcycle Grid -->
+  <div class="moto-grid" id="moto-grid">
+    <!-- Populated by JS -->
+  </div>
+
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">RUSI</div>
+  <div class="footer-sub">MOTORS CORPORATION &nbsp;◆&nbsp; BUILT FOR FILIPINOS. BUILT BY RUSI.</div>
+  <div style="margin-top:0.75rem;font-family:'Rajdhani',sans-serif;font-size:0.72rem;color:var(--muted)">
+    © 2026 RUSI Motors Corporation. All rights reserved. &nbsp;|&nbsp; Prices are SRP and may vary per dealership.
+  </div>
+</footer>
+
+<!-- ═══════════════════ COMPARE BAR ═══════════════════ -->
+<div class="compare-bar" id="compare-bar">
+  <span class="compare-bar-title">◆ COMPARE</span>
+  <div class="compare-items" id="compare-items"></div>
+  <div class="compare-actions">
+    <button class="btn-compare-now" id="btn-compare-now" disabled>COMPARE NOW</button>
+    <button class="btn-clear-compare" id="btn-clear-compare">CLEAR</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ DETAIL MODAL ═══════════════════ -->
+<div class="modal-overlay" id="detail-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-model-name">MODEL NAME</h2>
+      <button class="modal-close" id="detail-close">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body-content"><!-- populated by JS --></div>
+  </div>
+</div>
+
+<!-- ═══════════════════ COMPARE MODAL ═══════════════════ -->
+<div class="modal-overlay" id="compare-modal">
+  <div class="modal compare-modal">
+    <div class="modal-header">
+      <h2>SIDE-BY-SIDE COMPARISON</h2>
+      <button class="modal-close" id="compare-close">✕</button>
+    </div>
+    <div class="modal-body" id="compare-body"><!-- populated by JS --></div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ═══════════════════ JAVASCRIPT ═══════════════════ -->
+<script>
+// ── RUSI Motors Catalog Data ────────────────────────────────
+const MOTORS = [
+  {
+    id: 1,
+    model: "RUSI GS50",
+    tagline: "The Everyday Warrior",
+    category: "Underbone",
+    engine: "125cc",
+    engineCC: 125,
+    fuelType: "Gasoline",
+    transmission: "Automatic",
+    topSpeed: "95 km/h",
+    fuelConsumption: "55 km/L",
+    weight: "98 kg",
+    seatHeight: "780 mm",
+    brakes: "Drum / Drum",
+    tires: "70/90-17 / 80/90-17",
+    price: 56000,
+    stock: 15,
+    minStock: 3,
+    colors: ["#1a1a1a","#E63946","#ffffff","#1565C0","#2E7D32"],
+    colorNames: ["Matte Black","RUSI Red","Pearl White","Navy Blue","Forest Green"],
+    emoji: "🏍️",
+    badges: ["BESTSELLER"],
+    features: ["Digital speedometer","LED headlight","Fuel gauge","Anti-theft alarm"],
+    description: "The RUSI GS50 is the ultimate everyday commuter. Lightweight, fuel-efficient, and built tough for Philippine roads. Perfect for students, professionals, and daily commuters."
+  },
+  {
+    id: 2,
+    model: "RUSI RFI 175",
+    tagline: "Power Meets Precision",
+    category: "Sport",
+    engine: "175cc",
+    engineCC: 175,
+    fuelType: "Gasoline",
+    transmission: "Manual (6-Speed)",
+    topSpeed: "135 km/h",
+    fuelConsumption: "40 km/L",
+    weight: "132 kg",
+    seatHeight: "800 mm",
+    brakes: "Disc / Drum",
+    tires: "80/90-17 / 100/80-17",
+    price: 79000,
+    stock: 8,
+    minStock: 3,
+    colors: ["#E63946","#1a1a1a","#FF8C00","#1565C0"],
+    colorNames: ["Flame Red","Midnight Black","Burnt Orange","Racing Blue"],
+    emoji: "🏍️",
+    badges: ["NEW","BESTSELLER"],
+    features: ["6-speed gearbox","Disc brake","Tachometer","Digital multi-display","Sporty fairing"],
+    description: "Engineered for riders who crave performance. The RUSI RFI 175 delivers aggressive styling with a powerful 175cc engine for highway cruising and city riding."
+  },
+  {
+    id: 3,
+    model: "RUSI Flash 150X",
+    tagline: "Urban Speed Machine",
+    category: "Sport",
+    engine: "150cc",
+    engineCC: 150,
+    fuelType: "Gasoline",
+    transmission: "Manual (5-Speed)",
+    topSpeed: "120 km/h",
+    fuelConsumption: "42 km/L",
+    weight: "118 kg",
+    seatHeight: "790 mm",
+    brakes: "Disc / Disc",
+    tires: "80/90-17 / 100/70-17",
+    price: 71200,
+    stock: 18,
+    minStock: 5,
+    colors: ["#FF8C00","#1a1a1a","#E63946","#4A148C"],
+    colorNames: ["Flash Orange","Stealth Black","Crimson","Galaxy Purple"],
+    emoji: "🏍️",
+    badges: ["BESTSELLER"],
+    features: ["Full fairing","Dual disc brake","Digital dashboard","LED lighting system","Sporty exhaust"],
+    description: "Flash through the city in style. The RUSI Flash 150X combines aggressive sporty design with reliable 150cc performance for the modern urban rider."
+  },
+  {
+    id: 4,
+    model: "RUSI Sigma 250",
+    tagline: "The Road Dominator",
+    category: "Big Bike",
+    engine: "250cc",
+    engineCC: 250,
+    fuelType: "Gasoline",
+    transmission: "Manual (6-Speed)",
+    topSpeed: "165 km/h",
+    fuelConsumption: "32 km/L",
+    weight: "162 kg",
+    seatHeight: "820 mm",
+    brakes: "Disc / Disc (ABS)",
+    tires: "100/80-17 / 130/70-17",
+    price: 145000,
+    stock: 5,
+    minStock: 2,
+    colors: ["#1a1a1a","#E63946","#37474F","#1565C0"],
+    colorNames: ["Shadow Black","Sigma Red","Gunmetal","Sapphire Blue"],
+    emoji: "🏍️",
+    badges: ["NEW","PREMIUM"],
+    features: ["ABS braking","Fuel injection","Liquid cooling","Digital TFT display","USB charging port","Adjustable suspension"],
+    description: "For riders who demand the best. The RUSI Sigma 250 is a fully-equipped big bike with ABS, fuel injection, and premium components ready for long-distance adventures."
+  },
+  {
+    id: 5,
+    model: "RUSI Glide 110",
+    tagline: "Comfort on Every Corner",
+    category: "Scooter",
+    engine: "110cc",
+    engineCC: 110,
+    fuelType: "Gasoline",
+    transmission: "CVT Automatic",
+    topSpeed: "85 km/h",
+    fuelConsumption: "58 km/L",
+    weight: "88 kg",
+    seatHeight: "765 mm",
+    brakes: "Drum / Drum",
+    tires: "80/90-14 / 90/90-14",
+    price: 48500,
+    stock: 22,
+    minStock: 5,
+    colors: ["#E91E63","#1a1a1a","#ffffff","#9C27B0","#2196F3"],
+    colorNames: ["Sakura Pink","Matte Black","Pure White","Violet","Sky Blue"],
+    emoji: "🛵",
+    badges: ["BESTSELLER"],
+    features: ["Under-seat storage","USB charging","LED headlight","Digital speedometer","Flat floorboard"],
+    description: "Smooth, stylish, and practical. The RUSI Glide 110 scooter is perfect for urban commuters who want convenience without sacrificing style."
+  },
+  {
+    id: 6,
+    model: "RUSI Trail 200X",
+    tagline: "Conquer Any Terrain",
+    category: "Trail",
+    engine: "200cc",
+    engineCC: 200,
+    fuelType: "Gasoline",
+    transmission: "Manual (5-Speed)",
+    topSpeed: "110 km/h",
+    fuelConsumption: "38 km/L",
+    weight: "128 kg",
+    seatHeight: "860 mm",
+    brakes: "Disc / Drum",
+    tires: "80/100-21 / 100/90-18",
+    price: 85000,
+    stock: 7,
+    minStock: 2,
+    colors: ["#E63946","#1a1a1a","#FF8C00","#2E7D32"],
+    colorNames: ["Rally Red","Desert Black","Dune Orange","Jungle Green"],
+    emoji: "🏍️",
+    badges: ["OFF-ROAD"],
+    features: ["Long-travel suspension","Knobby tires","High ground clearance","Skid plate","Trail-ready exhaust","Dual-purpose"],
+    description: "Built for adventure. The RUSI Trail 200X handles rough terrain, muddy trails, and mountain roads with ease. Your adventure starts here."
+  },
+  {
+    id: 7,
+    model: "RUSI EV Pro",
+    tagline: "The Future is Electric",
+    category: "Electric",
+    engine: "3000W Motor",
+    engineCC: 0,
+    fuelType: "Electric",
+    transmission: "Single-Speed",
+    topSpeed: "80 km/h",
+    fuelConsumption: "N/A (Electric)",
+    weight: "95 kg",
+    seatHeight: "775 mm",
+    brakes: "Disc / Disc (Regenerative)",
+    tires: "80/90-16 / 90/90-16",
+    price: 95000,
+    stock: 10,
+    minStock: 3,
+    colors: ["#00BCD4","#1a1a1a","#ffffff","#4CAF50"],
+    colorNames: ["Electric Cyan","Stealth Black","Arctic White","Eco Green"],
+    emoji: "⚡",
+    badges: ["ELECTRIC","NEW"],
+    features: ["3000W brushless motor","72V 32Ah lithium battery","Range: 120km/charge","Fast charging (4hrs)","Regenerative braking","Smart LCD display","Mobile app connectivity"],
+    description: "Zero emissions. Maximum innovation. The RUSI EV Pro is the future of Filipino motorcycling — clean, quiet, and cost-efficient with a 120km range per charge."
+  },
+  {
+    id: 8,
+    model: "RUSI Maximo 125",
+    tagline: "Maximum Value, Maximum Style",
+    category: "Underbone",
+    engine: "125cc",
+    engineCC: 125,
+    fuelType: "Gasoline",
+    transmission: "Manual (4-Speed)",
+    topSpeed: "100 km/h",
+    fuelConsumption: "52 km/L",
+    weight: "102 kg",
+    seatHeight: "782 mm",
+    brakes: "Disc / Drum",
+    tires: "70/90-17 / 80/90-17",
+    price: 63500,
+    stock: 12,
+    minStock: 4,
+    colors: ["#1a1a1a","#E63946","#2196F3","#FF8C00","#ffffff"],
+    colorNames: ["Midnight Black","Hot Red","Ocean Blue","Sunset Orange","Pure White"],
+    emoji: "🏍️",
+    badges: ["VALUE PICK"],
+    features: ["Disc front brake","Digital meter","LED headlight","Sporty body kit","Dual-tone color options"],
+    description: "Style and substance at an unbeatable price. The RUSI Maximo 125 gives you premium features without the premium price tag."
+  },
+  {
+    id: 9,
+    model: "RUSI Cruiser 400",
+    tagline: "Born to Cruise",
+    category: "Big Bike",
+    engine: "400cc",
+    engineCC: 400,
+    fuelType: "Gasoline",
+    transmission: "Manual (6-Speed)",
+    topSpeed: "185 km/h",
+    fuelConsumption: "25 km/L",
+    weight: "198 kg",
+    seatHeight: "730 mm",
+    brakes: "Dual Disc (ABS)",
+    tires: "120/70-18 / 160/70-17",
+    price: 285000,
+    stock: 3,
+    minStock: 1,
+    colors: ["#1a1a1a","#8B0000","#B8860B","#2C3E50"],
+    colorNames: ["Jet Black","Deep Crimson","Classic Gold","Midnight Navy"],
+    emoji: "🏍️",
+    badges: ["PREMIUM","LIMITED"],
+    features: ["V-twin 400cc engine","ABS + traction control","Cruise control","TFT touchscreen","Bluetooth connectivity","Heated grips","USB-C charging"],
+    description: "The flagship of the RUSI lineup. The Cruiser 400 is a touring powerhouse with premium technology, long-range capability, and unmistakable road presence."
+  },
+  {
+    id: 10,
+    model: "RUSI Zip 100",
+    tagline: "Small but Mighty",
+    category: "Scooter",
+    engine: "100cc",
+    engineCC: 100,
+    fuelType: "Gasoline",
+    transmission: "CVT Automatic",
+    topSpeed: "80 km/h",
+    fuelConsumption: "65 km/L",
+    weight: "78 kg",
+    seatHeight: "755 mm",
+    brakes: "Drum / Drum",
+    tires: "70/90-14 / 80/90-14",
+    price: 38500,
+    stock: 30,
+    minStock: 8,
+    colors: ["#E91E63","#FF8C00","#1a1a1a","#4CAF50","#2196F3"],
+    colorNames: ["Candy Pink","Sunny Yellow","Midnight Black","Fresh Green","Sky Blue"],
+    emoji: "🛵",
+    badges: ["BUDGET PICK"],
+    features: ["Lightweight 78kg","Flat floorboard","Under-seat storage","Low fuel consumption","Easy to park"],
+    description: "The most affordable way to ride. The RUSI Zip 100 is lightweight, easy to handle, and incredibly fuel-efficient — perfect for first-time riders."
+  },
+  {
+    id: 11,
+    model: "RUSI Moto-X 250R",
+    tagline: "Race-Ready. Road-Legal.",
+    category: "Sport",
+    engine: "250cc",
+    engineCC: 250,
+    fuelType: "Gasoline",
+    transmission: "Manual (6-Speed)",
+    topSpeed: "175 km/h",
+    fuelConsumption: "30 km/L",
+    weight: "148 kg",
+    seatHeight: "810 mm",
+    brakes: "Dual Disc (ABS)",
+    tires: "110/70-17 / 140/70-17",
+    price: 168000,
+    stock: 4,
+    minStock: 2,
+    colors: ["#E63946","#FF8C00","#1a1a1a","#4A148C"],
+    colorNames: ["Race Red","Flame Orange","Carbon Black","Dark Purple"],
+    emoji: "🏍️",
+    badges: ["SPORT","NEW"],
+    features: ["Race-tuned 250cc","ABS braking","Quick-shifter","LED cockpit","Race exhaust","Sporty fairing","Pillion footpegs"],
+    description: "Inspired by racing. Built for the road. The RUSI Moto-X 250R brings track-level performance to your daily commute with premium sport features."
+  },
+  {
+    id: 12,
+    model: "RUSI ADV 150",
+    tagline: "Adventure Without Limits",
+    category: "Trail",
+    engine: "150cc",
+    engineCC: 150,
+    fuelType: "Gasoline",
+    transmission: "CVT Automatic",
+    topSpeed: "105 km/h",
+    fuelConsumption: "44 km/L",
+    weight: "134 kg",
+    seatHeight: "830 mm",
+    brakes: "Disc / Disc (ABS)",
+    tires: "110/80-14 / 130/70-13",
+    price: 118000,
+    stock: 6,
+    minStock: 2,
+    colors: ["#37474F","#E63946","#FF8C00","#1a1a1a"],
+    colorNames: ["Army Gray","Rally Red","Adventure Orange","Stealth Black"],
+    emoji: "🏍️",
+    badges: ["ADV","BESTSELLER"],
+    features: ["Automatic transmission","ABS","Large windshield","21L storage","Smart key system","Riding modes","Long-travel suspension"],
+    description: "The adventure scooter that can do it all. The RUSI ADV 150 combines the ease of automatic transmission with the capability to tackle any road or trail."
+  }
+];
+
+// ── State ────────────────────────────────────────────────────
+let filteredMotors = [...MOTORS];
+let activeCategory = 'all';
+let compareList = [];
+let currentSearch = '';
+let currentSort = 'default';
+
+// ── Formatters ───────────────────────────────────────────────
+function formatPrice(p) { return '₱' + p.toLocaleString('en-PH'); }
+
+function getStatusClass(stock, min) {
+  if (stock === 0) return ['status-out', 'OUT OF STOCK'];
+  if (stock <= min) return ['status-limited', 'LIMITED UNITS'];
+  return ['status-available', 'AVAILABLE'];
+}
+
+function getBadgeColor(badge) {
+  const map = {
+    'BESTSELLER': 'background:rgba(255,215,0,0.12);color:#FFD700;border:1px solid rgba(255,215,0,0.25)',
+    'NEW':        'background:rgba(0,180,216,0.12);color:#00B4D8;border:1px solid rgba(0,180,216,0.25)',
+    'PREMIUM':    'background:rgba(230,57,70,0.12);color:#E63946;border:1px solid rgba(230,57,70,0.25)',
+    'LIMITED':    'background:rgba(255,165,0,0.12);color:#FFA500;border:1px solid rgba(255,165,0,0.25)',
+    'ELECTRIC':   'background:rgba(0,255,136,0.12);color:#00FF88;border:1px solid rgba(0,255,136,0.25)',
+    'OFF-ROAD':   'background:rgba(139,195,74,0.12);color:#8BC34A;border:1px solid rgba(139,195,74,0.25)',
+    'SPORT':      'background:rgba(244,67,54,0.12);color:#F44336;border:1px solid rgba(244,67,54,0.25)',
+    'ADV':        'background:rgba(96,125,139,0.12);color:#78909C;border:1px solid rgba(96,125,139,0.25)',
+    'VALUE PICK': 'background:rgba(76,175,80,0.12);color:#4CAF50;border:1px solid rgba(76,175,80,0.25)',
+    'BUDGET PICK':'background:rgba(33,150,243,0.12);color:#2196F3;border:1px solid rgba(33,150,243,0.25)',
+  };
+  return map[badge] || 'background:rgba(255,255,255,0.06);color:#8B92A5;border:1px solid rgba(255,255,255,0.1)';
+}
+
+// ── Render Grid ──────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('moto-grid');
+  let motors = [...MOTORS];
+
+  // Filter by category
+  if (activeCategory !== 'all') motors = motors.filter(m => m.category === activeCategory);
+
+  // Filter by search
+  if (currentSearch) {
+    const s = currentSearch.toLowerCase();
+    motors = motors.filter(m => m.model.toLowerCase().includes(s) || m.category.toLowerCase().includes(s) || m.tagline.toLowerCase().includes(s));
+  }
+
+  // Sort
+  if (currentSort === 'price-asc')   motors.sort((a,b) => a.price - b.price);
+  if (currentSort === 'price-desc')  motors.sort((a,b) => b.price - a.price);
+  if (currentSort === 'engine-asc')  motors.sort((a,b) => a.engineCC - b.engineCC);
+  if (currentSort === 'name-asc')    motors.sort((a,b) => a.model.localeCompare(b.model));
+
+  filteredMotors = motors;
+  document.getElementById('results-num').textContent = motors.length;
+
+  if (motors.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="empty-icon">🔍</div>
+      <div class="empty-title">NO MODELS FOUND</div>
+      <div class="empty-sub">Try adjusting your filters or search term.</div>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = motors.map(m => {
+    const [statusCls, statusLabel] = getStatusClass(m.stock, m.minStock);
+    const isCompared = compareList.some(c => c.id === m.id);
+    const colorSwatches = m.colors.slice(0,5).map((c,i) =>
+      `<div class="color-swatch" style="background:${c}" title="${m.colorNames[i]}"></div>`
+    ).join('');
+    const badges = m.badges.slice(0,2).map(b =>
+      `<span style="font-family:'Orbitron',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.5px;padding:2px 7px;border-radius:2px;${getBadgeColor(b)}">${b}</span>`
+    ).join('');
+
+    return `
+    <div class="moto-card" id="card-${m.id}">
+      <div class="card-status ${statusCls}">${statusLabel}</div>
+      <label class="card-compare" title="Add to compare">
+        <input type="checkbox" onchange="toggleCompare(${m.id}, this.checked)" ${isCompared?'checked':''} ${m.stock===0?'disabled':''}/>
+        COMPARE
+      </label>
+      <div class="card-img" onclick="openDetail(${m.id})">
+        <span class="card-img-emoji">${m.emoji}</span>
+        <div class="card-category">${m.category} • ${m.engine}</div>
+      </div>
+      <div class="card-body">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:0.5rem;margin-bottom:0.3rem">
+          <div class="card-model" onclick="openDetail(${m.id})">${m.model}</div>
+          <div style="display:flex;gap:0.3rem;flex-wrap:wrap;justify-content:flex-end">${badges}</div>
+        </div>
+        <div class="card-tagline">${m.tagline}</div>
+        <div class="card-specs">
+          <div class="spec-chip highlight">⚡ ${m.engine}</div>
+          <div class="spec-chip">${m.transmission}</div>
+          <div class="spec-chip">🏁 ${m.topSpeed}</div>
+          <div class="spec-chip">⛽ ${m.fuelConsumption}</div>
+        </div>
+        <div class="card-colors">
+          <span class="card-colors-label">COLORS:</span>
+          ${colorSwatches}
+          ${m.colors.length > 5 ? `<span style="font-size:0.68rem;color:var(--muted);font-family:'Rajdhani',sans-serif">+${m.colors.length-5}</span>` : ''}
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">${formatPrice(m.price)}</div>
+            <div class="card-price-label">SUGGESTED RETAIL PRICE</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-card btn-details" onclick="openDetail(${m.id})">DETAILS</button>
+            <button class="btn-card btn-inquire" onclick="inquire(${m.id})" ${m.stock===0?'disabled':''}>INQUIRE</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Detail Modal ─────────────────────────────────────────────
+function openDetail(id) {
+  const m = MOTORS.find(x => x.id === id);
+  if (!m) return;
+  const [statusCls, statusLabel] = getStatusClass(m.stock, m.minStock);
+  const modal = document.getElementById('detail-modal');
+  document.getElementById('modal-model-name').textContent = m.model;
+
+  const badges = m.badges.map(b =>
+    `<span class="modal-badge" style="${getBadgeColor(b)};font-family:'Orbitron',sans-serif;font-size:0.58rem;font-weight:700;letter-spacing:0.5px;padding:2px 10px;border-radius:2px">${b}</span>`
+  ).join('');
+
+  const colorBtns = m.colors.map((c,i) =>
+    `<div class="color-btn ${i===0?'active':''}" style="background:${c}" title="${m.colorNames[i]}" onclick="selectColor(this)"></div>`
+  ).join('');
+
+  const features = m.features.map(f =>
+    `<li style="font-family:'Rajdhani',sans-serif;font-size:0.85rem;color:var(--secondary);padding:0.3rem 0;border-bottom:1px solid rgba(230,57,70,0.05);display:flex;align-items:center;gap:0.5rem"><span style="color:var(--red)">◆</span>${f}</li>`
+  ).join('');
+
+  document.getElementById('modal-body-content').innerHTML = `
+    <div class="modal-hero">
+      <div class="modal-img">${m.emoji}</div>
+      <div class="modal-info">
+        <div class="modal-model">${m.model}</div>
+        <div class="modal-tagline">${m.tagline}</div>
+        <div class="modal-price">${formatPrice(m.price)}</div>
+        <div class="modal-price-note">Suggested Retail Price. Prices may vary per dealer.</div>
+        <div class="modal-badges">
+          <span class="modal-badge ${statusCls.replace('status-','badge-')}" style="${statusCls==='status-available'?'background:rgba(0,255,136,0.1);color:var(--green);border:1px solid rgba(0,255,136,0.2)':statusCls==='status-limited'?'background:rgba(255,184,0,0.1);color:#FFB800;border:1px solid rgba(255,184,0,0.2)':'background:rgba(230,57,70,0.1);color:var(--red);border:1px solid rgba(230,57,70,0.2)'}">${statusLabel} (${m.stock} units)</span>
+          ${badges}
+        </div>
+        <div class="modal-colors">
+          <span class="modal-colors-label">COLOR:</span>
+          ${colorBtns}
+        </div>
+        <div class="modal-actions">
+          <button class="btn-full btn-primary-full" onclick="inquire(${m.id})" ${m.stock===0?'disabled':''}>🏍️ INQUIRE NOW</button>
+          <button class="btn-full btn-outline-full" onclick="toggleCompare(${m.id},true);showToast('Added to compare!')">⚖ COMPARE</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--red);letter-spacing:2px;margin-bottom:0.75rem">◆ TECHNICAL SPECS</div>
+        <table class="spec-table">
+          <tr><td>ENGINE</td><td>${m.engine} ${m.fuelType}</td></tr>
+          <tr><td>TRANSMISSION</td><td>${m.transmission}</td></tr>
+          <tr><td>TOP SPEED</td><td>${m.topSpeed}</td></tr>
+          <tr><td>FUEL CONSUMPTION</td><td>${m.fuelConsumption}</td></tr>
+          <tr><td>DRY WEIGHT</td><td>${m.weight}</td></tr>
+          <tr><td>SEAT HEIGHT</td><td>${m.seatHeight}</td></tr>
+          <tr><td>BRAKES</td><td>${m.brakes}</td></tr>
+          <tr><td>TIRES</td><td style="font-size:0.78rem">${m.tires}</td></tr>
+        </table>
+      </div>
+      <div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--red);letter-spacing:2px;margin-bottom:0.75rem">◆ KEY FEATURES</div>
+        <ul style="list-style:none;padding:0">${features}</ul>
+      </div>
+    </div>
+
+    <div style="margin-top:1.25rem;padding:1rem;background:rgba(230,57,70,0.04);border:1px solid rgba(230,57,70,0.1);border-radius:8px">
+      <div style="font-family:'Orbitron',sans-serif;font-size:0.7rem;color:var(--red);letter-spacing:2px;margin-bottom:0.5rem">◆ ABOUT THIS MODEL</div>
+      <p style="font-family:'Rajdhani',sans-serif;font-size:0.9rem;color:var(--secondary);line-height:1.7">${m.description}</p>
+    </div>
+  `;
+
+  modal.classList.add('show');
+}
+
+function selectColor(el) {
+  el.closest('.modal-info').querySelectorAll('.color-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── Compare ──────────────────────────────────────────────────
+function toggleCompare(id, checked) {
+  const motor = MOTORS.find(m => m.id === id);
+  if (!motor) return;
+  if (checked) {
+    if (compareList.length >= 3) {
+      showToast('MAX 3 MODELS TO COMPARE!', 'warning');
+      // uncheck the box
+      const card = document.getElementById('card-'+id);
+      if (card) { const cb = card.querySelector('input[type=checkbox]'); if(cb) cb.checked = false; }
+      return;
+    }
+    if (!compareList.some(m => m.id === id)) {
+      compareList.push(motor);
+      showToast(`${motor.model} added to compare`);
+    }
+  } else {
+    compareList = compareList.filter(m => m.id !== id);
+  }
+  updateCompareBar();
+}
+
+function updateCompareBar() {
+  const bar = document.getElementById('compare-bar');
+  const itemsEl = document.getElementById('compare-items');
+  const btnCompare = document.getElementById('btn-compare-now');
+
+  if (compareList.length === 0) {
+    bar.classList.remove('show');
+    return;
+  }
+  bar.classList.add('show');
+
+  // Render items + empty slots
+  let html = compareList.map(m => `
+    <div class="compare-item">
+      <span>${m.emoji} ${m.model}</span>
+      <button onclick="removeCompare(${m.id})">✕</button>
+    </div>`).join('');
+
+  const emptySlots = 2 - compareList.length;
+  for (let i = 0; i < Math.max(0, emptySlots); i++) {
+    html += `<div class="compare-empty">+ ADD MODEL</div>`;
+  }
+
+  itemsEl.innerHTML = html;
+  btnCompare.disabled = compareList.length < 2;
+}
+
+function removeCompare(id) {
+  compareList = compareList.filter(m => m.id !== id);
+  // Uncheck the card
+  const card = document.getElementById('card-'+id);
+  if (card) { const cb = card.querySelector('input[type=checkbox]'); if(cb) cb.checked = false; }
+  updateCompareBar();
+}
+
+document.getElementById('btn-clear-compare').addEventListener('click', () => {
+  compareList = [];
+  document.querySelectorAll('.moto-card input[type=checkbox]').forEach(cb => cb.checked = false);
+  updateCompareBar();
+});
+
+document.getElementById('btn-compare-now').addEventListener('click', openCompareModal);
+
+function openCompareModal() {
+  if (compareList.length < 2) return;
+  const modal = document.getElementById('compare-modal');
+
+  const cols = compareList.length + 1;
+  const colStyle = `grid-template-columns: 140px ${compareList.map(()=>'1fr').join(' ')}`;
+
+  const rows = [
+    { label: 'PHOTO',        vals: m => m.emoji, style: 'font-size:2.5rem;text-align:center' },
+    { label: 'MODEL',        vals: m => `<span style="font-family:'Orbitron',sans-serif;font-size:0.8rem;font-weight:700;color:var(--red)">${m.model}</span>` },
+    { label: 'PRICE',        vals: m => `<span style="font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:700;color:var(--red)">${formatPrice(m.price)}</span>` },
+    { label: 'CATEGORY',     vals: m => m.category },
+    { label: 'ENGINE',       vals: m => m.engine },
+    { label: 'FUEL',         vals: m => m.fuelType },
+    { label: 'TRANSMISSION', vals: m => m.transmission },
+    { label: 'TOP SPEED',    vals: m => m.topSpeed },
+    { label: 'FUEL ECONOMY', vals: m => m.fuelConsumption },
+    { label: 'WEIGHT',       vals: m => m.weight },
+    { label: 'SEAT HEIGHT',  vals: m => m.seatHeight },
+    { label: 'BRAKES',       vals: m => m.brakes },
+    { label: 'AVAILABILITY', vals: m => { const [,l]=getStatusClass(m.stock,m.minStock); return `<span style="font-weight:700;color:${m.stock>m.minStock?'var(--green)':m.stock>0?'#FFB800':'var(--red)'}">${l}</span>`; } },
+    { label: 'STOCK',        vals: m => `${m.stock} units` },
+  ];
+
+  const tableHtml = rows.map(row => `
+    <div class="compare-row" style="${colStyle}">
+      <div class="compare-cell label">${row.label}</div>
+      ${compareList.map(m => `<div class="compare-cell" style="${row.style||''}">${row.vals(m)}</div>`).join('')}
+    </div>`).join('');
+
+  document.getElementById('compare-body').innerHTML = `
+    <div class="compare-grid">
+      <div class="compare-row" style="${colStyle}">
+        <div class="compare-cell header">SPECIFICATION</div>
+        ${compareList.map(m => `<div class="compare-cell header" style="text-align:center">${m.model}</div>`).join('')}
+      </div>
+      ${tableHtml}
+    </div>
+    <div style="display:flex;gap:0.75rem;margin-top:1.25rem">
+      ${compareList.map(m => `<button class="btn-card btn-inquire" style="flex:1;padding:0.65rem" onclick="inquire(${m.id})" ${m.stock===0?'disabled':''}>INQUIRE: ${m.model}</button>`).join('')}
+    </div>`;
+
+  modal.classList.add('show');
+}
+
+// ── Inquire ──────────────────────────────────────────────────
+function inquire(id) {
+  const m = MOTORS.find(x => x.id === id);
+  if (!m) return;
+  // Close any open modal
+  document.querySelectorAll('.modal-overlay').forEach(o => o.classList.remove('show'));
+  // Show toast
+  showToast(`✅ Inquiry for ${m.model} sent! A staff member will contact you shortly.`);
+  setTimeout(() => showToast(`📞 Please visit your nearest RUSI dealer or call (02) 8888-RUSI`, 'info'), 1500);
+}
+
+// ── Filters ──────────────────────────────────────────────────
+document.getElementById('catalog-search').addEventListener('input', e => {
+  currentSearch = e.target.value;
+  renderGrid();
+});
+
+document.getElementById('sort-select').addEventListener('change', e => {
+  currentSort = e.target.value;
+  renderGrid();
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCategory = btn.dataset.cat;
+    renderGrid();
+  });
+});
+
+// ── Modal close ───────────────────────────────────────────────
+document.getElementById('detail-close').addEventListener('click', () => document.getElementById('detail-modal').classList.remove('show'));
+document.getElementById('compare-close').addEventListener('click', () => document.getElementById('compare-modal').classList.remove('show'));
+document.getElementById('detail-modal').addEventListener('click', e => { if (e.target === document.getElementById('detail-modal')) document.getElementById('detail-modal').classList.remove('show'); });
+document.getElementById('compare-modal').addEventListener('click', e => { if (e.target === document.getElementById('compare-modal')) document.getElementById('compare-modal').classList.remove('show'); });
+
+// ── Toast ─────────────────────────────────────────────────────
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  const colors = { success: 'var(--green)', warning: '#FFB800', info: 'var(--blue)', error: 'var(--red)' };
+  toast.style.borderLeftColor = colors[type] || colors.success;
+  toast.textContent = message;
+  container.appendChild(toast);
+  setTimeout(() => { toast.classList.add('removing'); setTimeout(() => toast.remove(), 300); }, 4000);
+}
+
+window.openDetail = openDetail;
+window.inquire = inquire;
+window.toggleCompare = toggleCompare;
+window.removeCompare = removeCompare;
+window.selectColor = selectColor;
+
+// ── Init ──────────────────────────────────────────────────────
+renderGrid();
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings – RUSI Motors IMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo">🏍️</div><div class="sidebar-brand"><span class="sidebar-brand-name">RUSI</span><span class="sidebar-brand-sub">MOTORS IMS v2.0</span></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">◆ MAIN SYSTEM</div>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> DASHBOARD</a>
+    <a href="catalog.html" class="nav-item" target="_blank"><span class="nav-icon">🏍️</span> MOTORCYCLE CATALOG</a>
+    <a href="inventory.html" class="nav-item"><span class="nav-icon">📦</span> INVENTORY</a>
+    <a href="sales.html" class="nav-item"><span class="nav-icon">💰</span> SALES</a>
+    <a href="services.html" class="nav-item"><span class="nav-icon">🔧</span> SERVICES</a>
+    <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> CUSTOMERS</a>
+    <div class="nav-section-label">◆ MANAGEMENT</div>
+    <a href="messages.html" class="nav-item"><span class="nav-icon">💬</span> MESSAGES</a>
+    <a href="reports.html" class="nav-item" data-min-role="Manager"><span class="nav-icon">📈</span> REPORTS</a>
+    <div class="nav-section-label">◆ SYSTEM</div>
+    <a href="settings.html" class="nav-item active"><span class="nav-icon">⚙️</span> SETTINGS</a>
+    <a href="logs.html" class="nav-item" data-role="Admin"><span class="nav-icon">📋</span> ACTIVITY LOGS</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebar-user-avatar">RU</div>
+    <div class="user-info"><div class="user-name" id="sidebar-user-name">LOADING…</div><div class="user-role" id="sidebar-user-role">—</div></div>
+    <button class="btn-logout" id="btn-logout">⏻</button>
+  </div>
+</aside>
+
+<div class="main-content">
+  <header class="top-header">
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+    <div class="header-title"><h1>SETTINGS</h1><p>SYSTEM CONFIGURATION & PREFERENCES</p></div>
+    <div class="header-actions"><div class="header-time" id="live-clock"></div></div>
+  </header>
+  <div class="page-body">
+    <div class="grid-2">
+
+      <!-- General Settings -->
+      <div class="card">
+        <div class="card-header"><span class="card-title"><span class="card-title-icon">⚙️</span> GENERAL SETTINGS</span></div>
+        <div class="input-group">
+          <label class="input-label">SYSTEM LANGUAGE</label>
+          <select class="select-field" id="set-lang"><option>English</option><option>Filipino</option></select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">DATE FORMAT</label>
+          <select class="select-field" id="set-date"><option>MM/DD/YYYY</option><option>DD/MM/YYYY</option><option>YYYY-MM-DD</option></select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">TIME FORMAT</label>
+          <select class="select-field" id="set-time"><option>12-Hour</option><option>24-Hour</option></select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">CURRENCY</label>
+          <select class="select-field" id="set-currency"><option>PHP (₱)</option><option>USD ($)</option></select>
+        </div>
+        <div class="input-group">
+          <label class="input-label">BRANCH / LOCATION</label>
+          <input class="input-field" id="set-branch" placeholder="e.g. Manila Main Branch"/>
+        </div>
+        <button class="btn btn-primary" id="btn-save-general" style="margin-top:0.5rem">💾 SAVE CHANGES</button>
+      </div>
+
+      <!-- System Preferences -->
+      <div class="card">
+        <div class="card-header"><span class="card-title"><span class="card-title-icon">🔧</span> SYSTEM PREFERENCES</span></div>
+
+        <div style="display:flex;flex-direction:column;gap:0.85rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border)">
+            <div><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-primary)">EMAIL NOTIFICATIONS</div><div style="font-size:0.72rem;color:var(--text-muted)">Receive alerts via email</div></div>
+            <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer">
+              <input type="checkbox" id="toggle-email" style="opacity:0;width:0;height:0" checked/>
+              <span id="slider-email" onclick="toggleSlider('email')" style="position:absolute;inset:0;background:var(--red);border-radius:22px;transition:0.3s;box-shadow:0 0 8px var(--red-glow)"><span style="position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;transform:translateX(20px)"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border)">
+            <div><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-primary)">SMS NOTIFICATIONS</div><div style="font-size:0.72rem;color:var(--text-muted)">Receive SMS alerts</div></div>
+            <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer">
+              <input type="checkbox" id="toggle-sms" style="opacity:0;width:0;height:0"/>
+              <span id="slider-sms" onclick="toggleSlider('sms')" style="position:absolute;inset:0;background:rgba(255,255,255,0.1);border-radius:22px;transition:0.3s"><span style="position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border)">
+            <div><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-primary)">AUTO BACKUP</div><div style="font-size:0.72rem;color:var(--text-muted)">Daily automatic data backup</div></div>
+            <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer">
+              <input type="checkbox" id="toggle-backup" style="opacity:0;width:0;height:0" checked/>
+              <span id="slider-backup" onclick="toggleSlider('backup')" style="position:absolute;inset:0;background:var(--red);border-radius:22px;transition:0.3s;box-shadow:0 0 8px var(--red-glow)"><span style="position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;transform:translateX(20px)"></span></span>
+            </label>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:0.65rem 0;border-bottom:1px solid var(--border)">
+            <div><div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-primary)">TWO-FACTOR AUTH</div><div style="font-size:0.72rem;color:var(--text-muted)">OTP required for all logins</div></div>
+            <label style="position:relative;display:inline-block;width:42px;height:22px;cursor:pointer">
+              <input type="checkbox" id="toggle-2fa" style="opacity:0;width:0;height:0" checked/>
+              <span id="slider-2fa" onclick="toggleSlider('2fa')" style="position:absolute;inset:0;background:var(--red);border-radius:22px;transition:0.3s;box-shadow:0 0 8px var(--red-glow)"><span style="position:absolute;width:16px;height:16px;background:#fff;border-radius:50%;top:3px;left:3px;transition:0.3s;transform:translateX(20px)"></span></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- About System — matching wireframe -->
+      <div class="card" style="grid-column:1/-1">
+        <div class="card-header"><span class="card-title"><span class="card-title-icon">🏍️</span> ABOUT RUSI MOTORS SYSTEM</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+          <div>
+            <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.85rem">SYSTEM INFORMATION</div>
+            <div style="display:flex;flex-direction:column;gap:0.65rem">
+              <div style="display:flex;justify-content:space-between;font-family:'Rajdhani',sans-serif;font-size:0.85rem;border-bottom:1px solid var(--border);padding-bottom:0.5rem">
+                <span style="color:var(--text-secondary)">VERSION</span>
+                <span style="color:var(--red);font-weight:700;font-family:'Orbitron',sans-serif;font-size:0.78rem">v2.0.0</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-family:'Rajdhani',sans-serif;font-size:0.85rem;border-bottom:1px solid var(--border);padding-bottom:0.5rem">
+                <span style="color:var(--text-secondary)">DEVELOPED BY</span>
+                <span style="color:var(--text-primary);font-weight:700">RUSI MOTORS IT DIVISION</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-family:'Rajdhani',sans-serif;font-size:0.85rem;border-bottom:1px solid var(--border);padding-bottom:0.5rem">
+                <span style="color:var(--text-secondary)">DATABASE</span>
+                <span style="color:var(--text-primary);font-weight:700">FIREBASE FIRESTORE</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-family:'Rajdhani',sans-serif;font-size:0.85rem">
+                <span style="color:var(--text-secondary)">LAST UPDATED</span>
+                <span style="color:var(--text-primary);font-weight:700" id="last-updated">2026</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:0.85rem">SYSTEM HEALTH</div>
+            <div style="text-align:center;padding:1rem">
+              <div style="font-family:'Orbitron',sans-serif;font-size:3rem;font-weight:700;color:var(--success);text-shadow:0 0 20px rgba(0,255,136,0.4)">98.6%</div>
+              <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:2px;font-family:'Rajdhani',sans-serif;margin-top:4px">SYSTEM EFFICIENCY</div>
+              <div style="display:flex;justify-content:center;align-items:center;gap:6px;margin-top:0.75rem">
+                <div class="status-indicator"></div>
+                <span style="font-family:'Rajdhani',sans-serif;font-size:0.78rem;color:var(--success);font-weight:700;letter-spacing:1px">ALL SYSTEMS OPERATIONAL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { requireAuth, logoutUser, populateSidebarUser } from './js/auth.js';
+  import { startClock, showToast, initSidebarToggle } from './js/app.js';
+  import { logActivity } from './js/logs.js';
+
+  requireAuth(); populateSidebarUser(); startClock(); initSidebarToggle();
+  document.getElementById('btn-logout').addEventListener('click',()=>logoutUser());
+  document.getElementById('last-updated').textContent=new Date().toLocaleDateString('en-PH',{year:'numeric',month:'long',day:'2-digit'});
+
+  // Load saved settings
+  const settings=JSON.parse(localStorage.getItem('rusi_v2_settings')||'{}');
+  if(settings.lang) document.getElementById('set-lang').value=settings.lang;
+  if(settings.branch) document.getElementById('set-branch').value=settings.branch;
+
+  document.getElementById('btn-save-general').addEventListener('click',()=>{
+    const newSettings={ lang:document.getElementById('set-lang').value, dateFormat:document.getElementById('set-date').value, timeFormat:document.getElementById('set-time').value, currency:document.getElementById('set-currency').value, branch:document.getElementById('set-branch').value };
+    localStorage.setItem('rusi_v2_settings',JSON.stringify(newSettings));
+    logActivity('SETTINGS','General settings updated').catch(()=>{});
+    showToast('SETTINGS SAVED.','success');
+  });
+
+  window.toggleSlider=function(id){
+    const checkbox=document.getElementById('toggle-'+id), slider=document.getElementById('slider-'+id);
+    checkbox.checked=!checkbox.checked;
+    const thumb=slider.querySelector('span');
+    if(checkbox.checked){ slider.style.background='var(--red)'; slider.style.boxShadow='0 0 8px var(--red-glow)'; thumb.style.transform='translateX(20px)'; }
+    else{ slider.style.background='rgba(255,255,255,0.1)'; slider.style.boxShadow='none'; thumb.style.transform='translateX(0)'; }
+  };
+</script>
+</body>
+</html>

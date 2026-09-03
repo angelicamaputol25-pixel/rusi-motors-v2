@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messages – RUSI Motors IMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo">🏍️</div><div class="sidebar-brand"><span class="sidebar-brand-name">RUSI</span><span class="sidebar-brand-sub">MOTORS IMS v2.0</span></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">◆ MAIN SYSTEM</div>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> DASHBOARD</a>
+    <a href="catalog.html" class="nav-item" target="_blank"><span class="nav-icon">🏍️</span> MOTORCYCLE CATALOG</a>
+    <a href="inventory.html" class="nav-item"><span class="nav-icon">📦</span> INVENTORY</a>
+    <a href="sales.html" class="nav-item"><span class="nav-icon">💰</span> SALES</a>
+    <a href="services.html" class="nav-item"><span class="nav-icon">🔧</span> SERVICES</a>
+    <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> CUSTOMERS</a>
+    <div class="nav-section-label">◆ MANAGEMENT</div>
+    <a href="messages.html" class="nav-item active"><span class="nav-icon">💬</span> MESSAGES</a>
+    <a href="reports.html" class="nav-item" data-min-role="Manager"><span class="nav-icon">📈</span> REPORTS</a>
+    <div class="nav-section-label">◆ SYSTEM</div>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> SETTINGS</a>
+    <a href="logs.html" class="nav-item" data-role="Admin"><span class="nav-icon">📋</span> ACTIVITY LOGS</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebar-user-avatar">RU</div>
+    <div class="user-info"><div class="user-name" id="sidebar-user-name">LOADING…</div><div class="user-role" id="sidebar-user-role">—</div></div>
+    <button class="btn-logout" id="btn-logout">⏻</button>
+  </div>
+</aside>
+
+<div class="main-content">
+  <header class="top-header">
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+    <div class="header-title"><h1>MESSAGES</h1><p>CUSTOMER COMMUNICATIONS & INQUIRIES</p></div>
+    <div class="header-actions"><div class="header-time" id="live-clock"></div></div>
+  </header>
+  <div class="page-body">
+
+    <!-- Matching wireframe: conversations list on left, message thread on right -->
+    <div style="display:grid;grid-template-columns:280px 1fr;gap:1rem;height:calc(100vh - 140px)">
+
+      <!-- Left: Conversations list -->
+      <div class="card" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+        <div style="padding:0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <span style="font-family:'Orbitron',sans-serif;font-size:0.78rem;color:var(--red);letter-spacing:1px">CONVERSATIONS</span>
+          <button class="btn btn-primary btn-sm" id="btn-new-msg">+ NEW</button>
+        </div>
+        <div style="padding:0.65rem">
+          <div class="search-bar" style="max-width:100%"><span class="search-icon">🔍</span><input type="text" id="msg-search" placeholder="SEARCH…" style="font-size:0.78rem"/></div>
+        </div>
+        <div id="conversations-list" style="flex:1;overflow-y:auto;padding:0 0.5rem 0.5rem">
+          <div class="text-muted" style="text-align:center;padding:2rem;font-family:'Rajdhani',sans-serif;font-size:0.82rem">LOADING…</div>
+        </div>
+      </div>
+
+      <!-- Right: Message thread -->
+      <div class="card" style="display:flex;flex-direction:column;padding:0;overflow:hidden">
+        <div id="msg-header" style="padding:0.85rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0.75rem">
+          <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.9rem">👤</div>
+          <div>
+            <div id="msg-contact-name" style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text-primary)">SELECT A CONVERSATION</div>
+            <div style="display:flex;align-items:center;gap:4px"><div class="status-indicator"></div><span style="font-size:0.65rem;color:var(--success);font-family:'Rajdhani',sans-serif">ONLINE</span></div>
+          </div>
+        </div>
+
+        <div id="msg-thread" style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:0.75rem">
+          <div class="text-muted" style="text-align:center;padding:3rem;font-family:'Rajdhani',sans-serif">
+            <div style="font-size:2rem;margin-bottom:0.5rem">💬</div>
+            SELECT A CONVERSATION TO VIEW MESSAGES
+          </div>
+        </div>
+
+        <div style="padding:0.75rem 1rem;border-top:1px solid var(--border);display:flex;gap:0.65rem" id="msg-input-area">
+          <input class="input-field" id="msg-input" placeholder="TYPE YOUR MESSAGE…" style="flex:1;font-family:'Rajdhani',sans-serif" disabled/>
+          <button class="btn btn-primary" id="btn-send-msg" disabled style="padding:0.5rem 1rem">SEND ➤</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- New Message Modal -->
+<div class="modal-overlay" id="new-msg-modal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header"><h3>NEW MESSAGE</h3><button class="modal-close" id="new-msg-close">✕</button></div>
+    <div class="modal-body">
+      <div class="input-group"><label class="input-label">CUSTOMER NAME *</label><input class="input-field" id="new-msg-name" placeholder="Full name of customer"/></div>
+      <div class="input-group"><label class="input-label">INITIAL MESSAGE *</label><textarea class="textarea-field" id="new-msg-text" placeholder="Type your message…" style="min-height:100px"></textarea></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-secondary" id="new-msg-cancel">CANCEL</button><button class="btn btn-primary" id="new-msg-send">SEND MESSAGE</button></div>
+  </div>
+</div>
+
+<script type="module">
+  import { requireAuth, logoutUser, populateSidebarUser, getCurrentUser } from './js/auth.js';
+  import { startClock, showToast, initSidebarToggle } from './js/app.js';
+  import { logActivity } from './js/logs.js';
+  import { db, auth } from './js/firebase-config.js';
+  import { collection, getDocs, addDoc, updateDoc, doc, orderBy, query, serverTimestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  requireAuth(); populateSidebarUser(); startClock(); initSidebarToggle();
+  document.getElementById('btn-logout').addEventListener('click',()=>logoutUser());
+
+  let selectedConvId=null, currentUser=null;
+  onAuthStateChanged(auth, u=>{ currentUser=u; });
+
+  async function loadConversations(){
+    const snap=await getDocs(query(collection(db,'messages'),orderBy('lastMessageAt','desc')));
+    const list=document.getElementById('conversations-list');
+    const convs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    if(!convs.length){ list.innerHTML='<div class="text-muted" style="text-align:center;padding:2rem;font-family:Rajdhani;font-size:0.8rem">NO CONVERSATIONS YET</div>'; return; }
+    list.innerHTML=convs.map(c=>`
+      <div class="conv-item" data-id="${c.id}" onclick="selectConv('${c.id}','${(c.customerName||'').replace(/'/g,"\\'")}','${(c.lastMessage||'').substring(0,30).replace(/'/g,"\\'")}…')"
+        style="padding:0.75rem;border-radius:4px;cursor:pointer;border-bottom:1px solid rgba(230,57,70,0.06);transition:all 0.2s;margin-bottom:2px">
+        <div style="display:flex;align-items:center;gap:0.6rem">
+          <div style="width:32px;height:32px;background:linear-gradient(135deg,var(--red),var(--red-dark));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;color:#fff;flex-shrink:0">${(c.customerName||'?').substring(0,2).toUpperCase()}</div>
+          <div style="flex:1;min-width:0">
+            <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:0.85rem;color:var(--text-primary)">${c.customerName||'—'}</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'Rajdhani',sans-serif">${(c.lastMessage||'').substring(0,35)}</div>
+          </div>
+          ${c.unread?`<div style="width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 6px var(--red);flex-shrink:0"></div>`:''}
+        </div>
+      </div>`).join('');
+  }
+
+  window.selectConv=async function(id, name){
+    selectedConvId=id;
+    document.getElementById('msg-contact-name').textContent=name.toUpperCase();
+    document.getElementById('msg-input').disabled=false;
+    document.getElementById('btn-send-msg').disabled=false;
+    document.querySelectorAll('.conv-item').forEach(el=>{ el.style.background=el.dataset.id===id?'rgba(230,57,70,0.08)':''; });
+
+    // Load thread
+    const snap=await getDocs(query(collection(db,`messages/${id}/thread`),orderBy('createdAt')));
+    const thread=document.getElementById('msg-thread');
+    thread.innerHTML=snap.docs.map(d=>{
+      const m=d.data();
+      const isStaff=m.sender==='staff';
+      return`<div style="display:flex;justify-content:${isStaff?'flex-end':'flex-start'}">
+        <div style="max-width:70%;background:${isStaff?'linear-gradient(135deg,var(--red),var(--red-dark))':'rgba(255,255,255,0.06)'};color:${isStaff?'#fff':'var(--text-primary)'};padding:0.65rem 0.9rem;border-radius:${isStaff?'12px 12px 2px 12px':'12px 12px 12px 2px'};font-family:'Rajdhani',sans-serif;font-size:0.85rem;font-weight:500">
+          ${m.text||''}
+          <div style="font-size:0.65rem;opacity:0.7;margin-top:3px;text-align:right">${m.createdAt?.toDate?m.createdAt.toDate().toLocaleTimeString('en-PH',{hour:'2-digit',minute:'2-digit',hour12:true}):'—'}</div>
+        </div>
+      </div>`;
+    }).join('');
+    thread.scrollTop=thread.scrollHeight;
+    // Mark as read
+    await updateDoc(doc(db,'messages',id),{unread:false});
+  };
+
+  document.getElementById('btn-send-msg').addEventListener('click',async()=>{
+    const text=document.getElementById('msg-input').value.trim();
+    if(!text||!selectedConvId)return;
+    try{
+      await addDoc(collection(db,`messages/${selectedConvId}/thread`),{text,sender:'staff',senderName:currentUser?.email||'Staff',createdAt:serverTimestamp()});
+      await updateDoc(doc(db,'messages',selectedConvId),{lastMessage:text,lastMessageAt:serverTimestamp()});
+      document.getElementById('msg-input').value='';
+      selectConv(selectedConvId,document.getElementById('msg-contact-name').textContent);
+    }catch(err){showToast('ERROR: '+err.message,'error');}
+  });
+
+  document.getElementById('msg-input').addEventListener('keypress',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); document.getElementById('btn-send-msg').click(); } });
+
+  // New message modal
+  const newModal=document.getElementById('new-msg-modal');
+  document.getElementById('btn-new-msg').addEventListener('click',()=>newModal.classList.add('show'));
+  document.getElementById('new-msg-close').addEventListener('click',()=>newModal.classList.remove('show'));
+  document.getElementById('new-msg-cancel').addEventListener('click',()=>newModal.classList.remove('show'));
+  newModal.addEventListener('click',e=>{if(e.target===newModal)newModal.classList.remove('show');});
+
+  document.getElementById('new-msg-send').addEventListener('click',async()=>{
+    const name=document.getElementById('new-msg-name').value.trim(),text=document.getElementById('new-msg-text').value.trim();
+    if(!name||!text){showToast('NAME AND MESSAGE REQUIRED.','warning');return;}
+    try{
+      const convRef=await addDoc(collection(db,'messages'),{customerName:name,lastMessage:text,lastMessageAt:serverTimestamp(),unread:false,createdAt:serverTimestamp()});
+      await addDoc(collection(db,`messages/${convRef.id}/thread`),{text,sender:'staff',senderName:currentUser?.email||'Staff',createdAt:serverTimestamp()});
+      await logActivity('MESSAGES',`New conversation with: ${name}`);
+      showToast('MESSAGE SENT.','success');
+      newModal.classList.remove('show');
+      document.getElementById('new-msg-name').value=''; document.getElementById('new-msg-text').value='';
+      loadConversations();
+    }catch(err){showToast('ERROR: '+err.message,'error');}
+  });
+
+  document.getElementById('msg-search').addEventListener('input',e=>{
+    const s=e.target.value.toLowerCase();
+    document.querySelectorAll('.conv-item').forEach(el=>{ el.style.display=el.textContent.toLowerCase().includes(s)?'':'none'; });
+  });
+
+  loadConversations();
+</script>
+</body>
+</html>
