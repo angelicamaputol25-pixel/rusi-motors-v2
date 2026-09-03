@@ -113,7 +113,7 @@
 
   onAuthStateChanged(auth,(user)=>{ if(user) window.location.replace(getBasePath()+'dashboard.html'); });
 
-  const SVC='YOUR_EMAILJS_SERVICE_ID', TPL='YOUR_EMAILJS_TEMPLATE_ID', PKEY='YOUR_EMAILJS_PUBLIC_KEY';
+  const SVC='rusi_v2_service', TPL='template_tpbst6o', PKEY='HDXE9T4vvUZKjWJyi';
   const OK='rusi_v2_reg_otp', OE='rusi_v2_reg_email', OX='rusi_v2_reg_expiry';
   function genOTP(){ return Math.floor(100000+Math.random()*900000).toString(); }
   async function sendOTP(email,name){
