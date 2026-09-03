@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard – RUSI Motors IMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">🏍️</div>
+    <div class="sidebar-brand"><span class="sidebar-brand-name">RUSI</span><span class="sidebar-brand-sub">MOTORS IMS v2.0</span></div>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">◆ MAIN SYSTEM</div>
+    <a href="dashboard.html"  class="nav-item active"><span class="nav-icon">📊</span> DASHBOARD</a>
+    <a href="inventory.html"  class="nav-item"><span class="nav-icon">🏍️</span> INVENTORY</a>
+    <a href="sales.html"      class="nav-item"><span class="nav-icon">💰</span> SALES</a>
+    <a href="services.html"   class="nav-item"><span class="nav-icon">🔧</span> SERVICES</a>
+    <a href="customers.html"  class="nav-item"><span class="nav-icon">👥</span> CUSTOMERS</a>
+    <div class="nav-section-label">◆ MANAGEMENT</div>
+    <a href="messages.html"   class="nav-item"><span class="nav-icon">💬</span> MESSAGES <span class="nav-badge" id="msg-badge">0</span></a>
+    <a href="reports.html"    class="nav-item" data-min-role="Manager"><span class="nav-icon">📈</span> REPORTS</a>
+    <div class="nav-section-label">◆ SYSTEM</div>
+    <a href="settings.html"   class="nav-item"><span class="nav-icon">⚙️</span> SETTINGS</a>
+    <a href="logs.html"       class="nav-item" data-role="Admin"><span class="nav-icon">📋</span> ACTIVITY LOGS</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebar-user-avatar">RU</div>
+    <div class="user-info">
+      <div class="user-name" id="sidebar-user-name">LOADING…</div>
+      <div class="user-role" id="sidebar-user-role">—</div>
+    </div>
+    <button class="btn-logout" id="btn-logout" title="Logout">⏻</button>
+  </div>
+</aside>
+
+<div class="main-content">
+  <header class="top-header">
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+    <div class="header-title">
+      <h1>DASHBOARD</h1>
+      <p>RUSI MOTORS — INVENTORY MANAGEMENT SYSTEM</p>
+    </div>
+    <div class="header-actions">
+      <div class="header-time" id="live-clock"></div>
+      <div style="display:flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:4px;padding:0.3rem 0.75rem">
+        <div class="status-indicator"></div>
+        <span style="font-family:'Orbitron',sans-serif;font-size:0.65rem;color:var(--success);letter-spacing:1px">SYSTEM ONLINE</span>
+      </div>
+      <button class="btn-icon" onclick="window.location.href='inventory.html'" title="Alerts">🔔<span class="notif-dot" id="notif-dot" style="display:none"></span></button>
+    </div>
+  </header>
+
+  <div class="page-body">
+
+    <!-- KPI Stats — matching wireframe: USERS, VEHICLES, BOOKINGS, ALERTS -->
+    <div class="stats-grid mb-3">
+      <div class="stat-card">
+        <div class="stat-icon-wrap">👥</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-customers">—</div>
+          <div class="stat-label">CUSTOMERS</div>
+          <div class="stat-change up" id="stat-cust-sub">REGISTERED</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap">🏍️</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-vehicles">—</div>
+          <div class="stat-label">VEHICLES</div>
+          <div class="stat-change up" id="stat-veh-sub">IN STOCK</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap">📋</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-bookings">—</div>
+          <div class="stat-label">BOOKINGS</div>
+          <div class="stat-change up">THIS MONTH</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrap">⚠️</div>
+        <div class="stat-info">
+          <div class="stat-val" id="stat-alerts">—</div>
+          <div class="stat-label">ALERTS</div>
+          <div class="stat-change down" id="stat-alert-sub">LOW STOCK</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content grid — like wireframe -->
+    <div class="grid-3 mb-2">
+
+      <!-- System Status -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">🖥️</span> SYSTEM STATUS</span>
+          <span class="badge badge-success">OPERATIONAL</span>
+        </div>
+        <div style="text-align:center;padding:0.5rem 0">
+          <div style="font-family:'Orbitron',sans-serif;font-size:2.5rem;font-weight:700;color:var(--success);text-shadow:0 0 20px rgba(0,255,136,0.4)">100%</div>
+          <div style="font-size:0.7rem;color:var(--text-muted);letter-spacing:2px;font-family:'Rajdhani',sans-serif;margin-top:4px">OPERATIONAL</div>
+        </div>
+        <div style="margin-top:1rem">
+          <div class="resource-bar">
+            <div class="resource-label"><span>CPU USAGE</span><span id="cpu-val">62%</span></div>
+            <div class="resource-track"><div class="resource-fill" id="cpu-bar" style="width:62%"></div></div>
+          </div>
+          <div class="resource-bar">
+            <div class="resource-label"><span>MEMORY</span><span id="mem-val">74%</span></div>
+            <div class="resource-track"><div class="resource-fill" id="mem-bar" style="width:74%"></div></div>
+          </div>
+          <div class="resource-bar">
+            <div class="resource-label"><span>STORAGE</span><span id="stor-val">56%</span></div>
+            <div class="resource-track"><div class="resource-fill" id="stor-bar" style="width:56%"></div></div>
+          </div>
+          <div class="resource-bar">
+            <div class="resource-label"><span>NETWORK</span><span id="net-val">81%</span></div>
+            <div class="resource-track"><div class="resource-fill" id="net-bar" style="width:81%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Performance Chart -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">📈</span> PERFORMANCE</span>
+          <span style="font-family:'Orbitron',sans-serif;font-size:0.9rem;color:var(--success)">▲ 98.6%</span>
+        </div>
+        <div class="chart-container" style="height:200px">
+          <canvas id="perfChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">⚡</span> RECENT ACTIVITY</span>
+          <a href="logs.html" class="btn btn-secondary btn-sm">VIEW ALL</a>
+        </div>
+        <div id="activity-feed">
+          <div class="text-muted" style="text-align:center;padding:1.5rem;font-family:'Rajdhani',sans-serif">LOADING…</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts row -->
+    <div class="grid-2 mb-2" data-min-role="Manager">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">💰</span> SALES OVERVIEW</span>
+          <select class="select-field" style="width:auto;font-size:0.75rem;padding:0.3rem 0.6rem;font-family:'Rajdhani',sans-serif">
+            <option>2026</option><option>2025</option>
+          </select>
+        </div>
+        <div class="chart-container"><canvas id="salesChart"></canvas></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">🥧</span> SALES BREAKDOWN</span>
+        </div>
+        <div style="display:flex;gap:1rem;align-items:center">
+          <div class="chart-container" style="height:200px;flex:1"><canvas id="breakdownChart"></canvas></div>
+          <div style="flex-shrink:0;font-size:0.7rem;font-family:'Rajdhani',sans-serif;color:var(--text-secondary)">
+            <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.4rem"><div style="width:10px;height:10px;background:var(--red);border-radius:2px"></div>MOTORCYCLES</div>
+            <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.4rem"><div style="width:10px;height:10px;background:#FF8800;border-radius:2px"></div>ACCESSORIES</div>
+            <div style="display:flex;align-items:center;gap:0.4rem;margin-bottom:0.4rem"><div style="width:10px;height:10px;background:var(--info);border-radius:2px"></div>SERVICES</div>
+            <div style="display:flex;align-items:center;gap:0.4rem"><div style="width:10px;height:10px;background:var(--success);border-radius:2px"></div>PARTS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">🏍️</span> INVENTORY QUICK VIEW</span>
+          <a href="inventory.html" class="btn btn-secondary btn-sm">VIEW ALL</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>MODEL</th><th>STOCK</th><th>PRICE</th><th>STATUS</th></tr></thead>
+            <tbody id="inv-preview">
+              <tr><td colspan="4" style="text-align:center;padding:1.5rem" class="text-muted">LOADING…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title"><span class="card-title-icon">📋</span> RECENT SALES</span>
+          <a href="sales.html" class="btn btn-secondary btn-sm">VIEW ALL</a>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr><th>UNIT</th><th>CUSTOMER</th><th>AMOUNT</th><th>STATUS</th></tr></thead>
+            <tbody id="sales-preview">
+              <tr><td colspan="4" style="text-align:center;padding:1.5rem" class="text-muted">LOADING…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="module">
+  import { requireAuth, logoutUser, populateSidebarUser } from './js/auth.js';
+  import { startClock, formatPeso, showToast, initSidebarToggle } from './js/app.js';
+  import { fetchLogs, formatLogTime, getModuleBadge } from './js/logs.js';
+  import { db } from './js/firebase-config.js';
+  import { collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  requireAuth(); populateSidebarUser(); startClock(); initSidebarToggle();
+  document.getElementById('btn-logout').addEventListener('click',()=>logoutUser());
+
+  Chart.defaults.color='#8B92A5'; Chart.defaults.borderColor='rgba(230,57,70,0.08)'; Chart.defaults.font.family='Rajdhani';
+
+  // Performance sparkline
+  const perfChart = new Chart(document.getElementById('perfChart'),{
+    type:'line',
+    data:{
+      labels:['','','','','','','','','','','',''],
+      datasets:[{data:[85,88,82,90,87,93,89,95,91,96,94,98],borderColor:'#E63946',backgroundColor:'rgba(230,57,70,0.1)',fill:true,tension:0.4,pointRadius:0,borderWidth:2}]
+    },
+    options:{ responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{display:false},y:{display:false}} }
+  });
+
+  // Sales chart
+  const salesChart = new Chart(document.getElementById('salesChart'),{
+    type:'bar',
+    data:{
+      labels:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],
+      datasets:[{label:'Revenue',data:Array(12).fill(0),backgroundColor:'rgba(230,57,70,0.7)',borderColor:'#E63946',borderWidth:1,borderRadius:4}]
+    },
+    options:{ responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'₱'+v.toLocaleString()}}} }
+  });
+
+  // Breakdown donut
+  const breakdownChart = new Chart(document.getElementById('breakdownChart'),{
+    type:'doughnut',
+    data:{
+      labels:['Motorcycles','Accessories','Services','Parts'],
+      datasets:[{data:[62,18,12,8],backgroundColor:['#E63946','#FF8800','#00B4D8','#00FF88'],borderColor:'#131820',borderWidth:3}]
+    },
+    options:{ responsive:true,maintainAspectRatio:false,cutout:'65%',plugins:{legend:{display:false}} }
+  });
+
+  // Simulate resource bars animation
+  setTimeout(()=>{
+    const resources=[{id:'cpu',val:Math.floor(55+Math.random()*20)},{id:'mem',val:Math.floor(65+Math.random()*20)},{id:'stor',val:Math.floor(45+Math.random()*20)},{id:'net',val:Math.floor(70+Math.random()*20)}];
+    resources.forEach(r=>{ document.getElementById(r.id+'-val').textContent=r.val+'%'; document.getElementById(r.id+'-bar').style.width=r.val+'%'; });
+  },1000);
+
+  async function loadDashboard(){
+    try{
+      const [invSnap,custSnap,salesSnap]=await Promise.all([
+        getDocs(query(collection(db,'inventory'),orderBy('name'))),
+        getDocs(collection(db,'customers')),
+        getDocs(query(collection(db,'sales'),orderBy('date','desc'),limit(50)))
+      ]);
+
+      let lowCount=0;
+      invSnap.forEach(d=>{ const i=d.data(); if(Number(i.quantity)<=Number(i.minStock||5)) lowCount++; });
+
+      document.getElementById('stat-customers').textContent=custSnap.size.toLocaleString();
+      document.getElementById('stat-vehicles').textContent=invSnap.size.toLocaleString();
+      document.getElementById('stat-alerts').textContent=lowCount;
+      if(lowCount>0) document.getElementById('notif-dot').style.display='block';
+
+      const now=new Date(),startMonth=new Date(now.getFullYear(),now.getMonth(),1);
+      let monthRev=0,monthCount=0; const monthlyRev=Array(12).fill(0);
+      const recentSales=[];
+      salesSnap.forEach(d=>{
+        const s=d.data(); const sd=s.date?.toDate?s.date.toDate():new Date(s.date);
+        const amt=Number(s.amount||0); monthlyRev[sd.getMonth()]+=amt;
+        if(sd>=startMonth){monthRev+=amt;monthCount++;}
+        if(recentSales.length<5) recentSales.push(s);
+      });
+      document.getElementById('stat-bookings').textContent=monthCount;
+      salesChart.data.datasets[0].data=monthlyRev; salesChart.update();
+
+      // Inventory preview
+      const invItems=invSnap.docs.slice(0,5).map(d=>({...d.data()}));
+      document.getElementById('inv-preview').innerHTML=invItems.length?invItems.map(i=>{
+        const qty=Number(i.quantity||0),min=Number(i.minStock||5);
+        const st=qty===0?'badge-danger':qty<=min?'badge-warning':'badge-success';
+        const sl=qty===0?'OUT':qty<=min?'LOW':'OK';
+        return`<tr><td class="fw-700">${i.name||'—'}</td><td class="${qty===0?'text-danger':qty<=min?'text-warning':'text-success'} fw-700">${qty}</td><td class="text-red">${formatPeso(i.price)}</td><td><span class="badge ${st}">${sl}</span></td></tr>`;
+      }).join(''):'<tr><td colspan="4" style="text-align:center;padding:1.5rem" class="text-muted">NO DATA</td></tr>';
+
+      // Sales preview
+      document.getElementById('sales-preview').innerHTML=recentSales.length?recentSales.map(s=>{
+        const bc=s.status==='Completed'?'badge-success':s.status==='Pending'?'badge-warning':'badge-danger';
+        return`<tr><td class="fw-700">${s.unit||s.item||'—'}</td><td>${s.customer||'—'}</td><td class="text-red fw-700">${formatPeso(s.amount)}</td><td><span class="badge ${bc}">${s.status||'—'}</span></td></tr>`;
+      }).join(''):'<tr><td colspan="4" style="text-align:center;padding:1.5rem" class="text-muted">NO SALES YET</td></tr>';
+
+      // Activity feed
+      const logs=await fetchLogs({maxCount:5});
+      const feed=document.getElementById('activity-feed');
+      feed.innerHTML=logs.length?logs.map(l=>{
+        const b=getModuleBadge(l.module);
+        return`<div class="activity-item"><div class="activity-dot"></div><div class="activity-content"><div class="activity-action">${b.icon} ${l.action||'—'}</div><div class="activity-time">${formatLogTime(l.timestamp)}</div></div></div>`;
+      }).join(''):'<div class="text-muted" style="text-align:center;padding:1.5rem;font-family:Rajdhani">NO RECENT ACTIVITY</div>';
+
+    }catch(err){ showToast('Error: '+err.message,'error'); }
+  }
+  loadDashboard();
+</script>
+</body>
+</html>

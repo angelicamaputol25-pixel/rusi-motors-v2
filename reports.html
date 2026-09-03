@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reports – RUSI Motors IMS</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+<div id="toast-container" class="toast-container"></div>
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-header"><div class="sidebar-logo">🏍️</div><div class="sidebar-brand"><span class="sidebar-brand-name">RUSI</span><span class="sidebar-brand-sub">MOTORS IMS v2.0</span></div></div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">◆ MAIN SYSTEM</div>
+    <a href="dashboard.html" class="nav-item"><span class="nav-icon">📊</span> DASHBOARD</a>
+    <a href="inventory.html" class="nav-item"><span class="nav-icon">🏍️</span> INVENTORY</a>
+    <a href="sales.html" class="nav-item"><span class="nav-icon">💰</span> SALES</a>
+    <a href="services.html" class="nav-item"><span class="nav-icon">🔧</span> SERVICES</a>
+    <a href="customers.html" class="nav-item"><span class="nav-icon">👥</span> CUSTOMERS</a>
+    <div class="nav-section-label">◆ MANAGEMENT</div>
+    <a href="messages.html" class="nav-item"><span class="nav-icon">💬</span> MESSAGES</a>
+    <a href="reports.html" class="nav-item active"><span class="nav-icon">📈</span> REPORTS</a>
+    <div class="nav-section-label">◆ SYSTEM</div>
+    <a href="settings.html" class="nav-item"><span class="nav-icon">⚙️</span> SETTINGS</a>
+    <a href="logs.html" class="nav-item" data-role="Admin"><span class="nav-icon">📋</span> ACTIVITY LOGS</a>
+  </nav>
+  <div class="sidebar-user">
+    <div class="user-avatar" id="sidebar-user-avatar">RU</div>
+    <div class="user-info"><div class="user-name" id="sidebar-user-name">LOADING…</div><div class="user-role" id="sidebar-user-role">—</div></div>
+    <button class="btn-logout" id="btn-logout">⏻</button>
+  </div>
+</aside>
+
+<div class="main-content">
+  <header class="top-header">
+    <button class="sidebar-toggle" id="sidebar-toggle">☰</button>
+    <div class="header-title"><h1>REPORTS & ANALYTICS</h1><p>BUSINESS INTELLIGENCE & PERFORMANCE METRICS</p></div>
+    <div class="header-actions">
+      <div class="header-time" id="live-clock"></div>
+      <button class="btn btn-secondary btn-sm" onclick="window.print()">🖨 PRINT</button>
+      <button class="btn btn-primary btn-sm" onclick="exportTableCSV('r-table','rusi-report.csv')">⬇ EXPORT</button>
+    </div>
+  </header>
+  <div class="page-body">
+    <div id="blocked" class="blocked-page" style="display:none">
+      <div class="blocked-icon">🔒</div>
+      <h2>ACCESS DENIED</h2>
+      <p>REPORTS ARE RESTRICTED TO MANAGERS AND ADMINS.</p>
+      <a href="dashboard.html" class="btn btn-primary" style="margin-top:1.5rem;display:inline-flex">← RETURN TO DASHBOARD</a>
+    </div>
+    <div id="page-content">
+      <div class="stats-grid mb-3">
+        <div class="stat-card"><div class="stat-icon-wrap">💰</div><div class="stat-info"><div class="stat-val" id="r-rev">—</div><div class="stat-label">TOTAL REVENUE</div><div class="stat-change up">ALL TIME</div></div></div>
+        <div class="stat-card"><div class="stat-icon-wrap">🛒</div><div class="stat-info"><div class="stat-val" id="r-tx">—</div><div class="stat-label">TRANSACTIONS</div></div></div>
+        <div class="stat-card"><div class="stat-icon-wrap">📊</div><div class="stat-info"><div class="stat-val" id="r-avg">—</div><div class="stat-label">AVG. SALE VALUE</div></div></div>
+        <div class="stat-card"><div class="stat-icon-wrap">🔧</div><div class="stat-info"><div class="stat-val" id="r-svc-rev">—</div><div class="stat-label">SERVICE REVENUE</div></div></div>
+      </div>
+      <div class="grid-2 mb-3">
+        <div class="card"><div class="card-header"><span class="card-title"><span class="card-title-icon">📈</span> MONTHLY SALES REVENUE</span></div><div class="chart-container"><canvas id="revenueChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><span class="card-title-icon">🏆</span> TOP 5 BEST-SELLING UNITS</span></div><div class="chart-container"><canvas id="topChart"></canvas></div></div>
+      </div>
+      <div class="grid-2 mb-3">
+        <div class="card"><div class="card-header"><span class="card-title"><span class="card-title-icon">💳</span> PAYMENT METHODS</span></div><div class="chart-container"><canvas id="payChart"></canvas></div></div>
+        <div class="card"><div class="card-header"><span class="card-title"><span class="card-title-icon">🔧</span> SERVICE TYPES</span></div><div class="chart-container"><canvas id="svcChart"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><span class="card-title-icon">📋</span> SALES SUMMARY BY UNIT</span></div>
+        <div class="table-wrap">
+          <table class="data-table" id="r-table">
+            <thead><tr><th>UNIT MODEL</th><th>UNITS SOLD</th><th>TOTAL REVENUE</th><th>AVG. PRICE</th><th>LAST SALE DATE</th></tr></thead>
+            <tbody id="r-tbody"><tr><td colspan="5" style="text-align:center;padding:2rem" class="text-muted">LOADING…</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { requireAuth, logoutUser, populateSidebarUser, getCachedRole } from './js/auth.js';
+  import { startClock, showToast, initSidebarToggle, formatPeso, exportTableCSV } from './js/app.js';
+  import { db } from './js/firebase-config.js';
+  import { collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  requireAuth(); populateSidebarUser(); startClock(); initSidebarToggle();
+  document.getElementById('btn-logout').addEventListener('click',()=>logoutUser());
+  window.exportTableCSV=exportTableCSV;
+
+  Chart.defaults.color='#8B92A5'; Chart.defaults.borderColor='rgba(230,57,70,0.08)'; Chart.defaults.font.family='Rajdhani';
+
+  setTimeout(async()=>{
+    const role=getCachedRole();
+    if(role==='Staff'){ document.getElementById('blocked').style.display='block'; document.getElementById('page-content').style.display='none'; return; }
+    try{
+      const [salesSnap,svcSnap]=await Promise.all([getDocs(query(collection(db,'sales'),orderBy('date','desc'))),getDocs(query(collection(db,'services')))]);
+      const sales=salesSnap.docs.map(d=>({id:d.id,...d.data()}));
+
+      let totalRev=0; const monthRev=Array(12).fill(0); const unitMap={}; const payMap={};
+      sales.forEach(s=>{
+        const amt=Number(s.amount||0),date=s.date?.toDate?s.date.toDate():new Date(s.date);
+        totalRev+=amt; monthRev[date.getMonth()]+=amt;
+        const unit=s.unit||'Unknown'; if(!unitMap[unit]) unitMap[unit]={count:0,total:0,last:date}; unitMap[unit].count++; unitMap[unit].total+=amt; if(date>unitMap[unit].last) unitMap[unit].last=date;
+        const pm=s.payment||'Cash'; payMap[pm]=(payMap[pm]||0)+1;
+      });
+
+      let svcRev=0; const svcTypes={};
+      svcSnap.docs.forEach(d=>{ const s=d.data(); if(s.status==='Completed') svcRev+=Number(s.cost||0); const t=s.serviceType||'Others'; svcTypes[t]=(svcTypes[t]||0)+1; });
+
+      document.getElementById('r-rev').textContent=formatPeso(totalRev);
+      document.getElementById('r-tx').textContent=sales.length;
+      document.getElementById('r-avg').textContent=sales.length?formatPeso(totalRev/sales.length):'₱0.00';
+      document.getElementById('r-svc-rev').textContent=formatPeso(svcRev);
+
+      new Chart(document.getElementById('revenueChart'),{type:'line',data:{labels:['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'],datasets:[{label:'Revenue',data:monthRev,borderColor:'#E63946',backgroundColor:'rgba(230,57,70,0.08)',fill:true,tension:0.4,pointBackgroundColor:'#E63946',pointRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'₱'+v.toLocaleString()}}}}});
+
+      const sorted=Object.entries(unitMap).sort((a,b)=>b[1].count-a[1].count).slice(0,5);
+      new Chart(document.getElementById('topChart'),{type:'bar',data:{labels:sorted.map(([k])=>k),datasets:[{data:sorted.map(([,v])=>v.count),backgroundColor:['#E63946','#FF8800','#00B4D8','#00FF88','#9b59b6'],borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}},indexAxis:'y'}});
+      new Chart(document.getElementById('payChart'),{type:'pie',data:{labels:Object.keys(payMap),datasets:[{data:Object.values(payMap),backgroundColor:['#E63946','#FF8800','#00B4D8','#00FF88','#9b59b6'],borderColor:'#131820',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}}});
+      new Chart(document.getElementById('svcChart'),{type:'doughnut',data:{labels:Object.keys(svcTypes),datasets:[{data:Object.values(svcTypes),backgroundColor:['#E63946','#FF8800','#00B4D8','#00FF88','#9b59b6'],borderColor:'#131820',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'55%',plugins:{legend:{position:'bottom'}}}});
+
+      const allSorted=Object.entries(unitMap).sort((a,b)=>b[1].count-a[1].count);
+      document.getElementById('r-tbody').innerHTML=allSorted.length?allSorted.map(([unit,data])=>`<tr><td class="fw-700">${unit}</td><td class="fw-700 text-red">${data.count}</td><td class="fw-700 text-success">${formatPeso(data.total)}</td><td class="text-muted">${formatPeso(data.total/data.count)}</td><td class="text-muted">${data.last.toLocaleDateString('en-PH')}</td></tr>`).join(''):'<tr><td colspan="5" style="text-align:center;padding:2rem" class="text-muted">NO DATA</td></tr>';
+    }catch(err){showToast('ERROR: '+err.message,'error');}
+  },800);
+</script>
+</body>
+</html>

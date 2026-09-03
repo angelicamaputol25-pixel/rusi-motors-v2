@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register – RUSI Motors</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"/>
+</head>
+<body>
+<div class="login-page">
+  <div class="login-form-panel">
+    <div class="login-box">
+      <div class="login-logo-wrap">
+        <div class="login-logo-icon">🏍️</div>
+        <div class="login-brand-title">RUSI</div>
+        <div class="login-brand-sub">SYSTEM REGISTRATION</div>
+      </div>
+
+      <div id="step-register">
+        <div class="login-welcome">CREATE <span>ACCOUNT</span></div>
+        <div class="login-error" id="reg-error" style="display:none">⚠ <span id="reg-error-msg"></span></div>
+        <form id="reg-form" novalidate>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="text" id="reg-name" placeholder="FULL NAME"/>
+              <span class="form-input-icon">👤</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="email" id="reg-email" placeholder="EMAIL ADDRESS"/>
+              <span class="form-input-icon">✉️</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <select class="form-input" id="reg-role" style="padding-left:2.5rem">
+                <option value="">-- SELECT ROLE --</option>
+                <option value="Staff">Staff</option>
+                <option value="Manager">Manager</option>
+              </select>
+              <span class="form-input-icon">🏷</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="password" id="reg-password" placeholder="PASSWORD (MIN 6 CHARS)"/>
+              <span class="form-input-icon">🔒</span>
+              <button type="button" class="toggle-password" id="toggle-pw1">👁</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="password" id="reg-confirm" placeholder="CONFIRM PASSWORD"/>
+              <span class="form-input-icon">🔒</span>
+              <button type="button" class="toggle-password" id="toggle-pw2">👁</button>
+            </div>
+          </div>
+          <button type="submit" class="btn-login" id="btn-register">SEND OTP & CONTINUE</button>
+        </form>
+        <div style="text-align:center;margin-top:1rem;font-size:0.75rem;color:var(--text-secondary);font-family:'Rajdhani',sans-serif;letter-spacing:0.5px">
+          ALREADY HAVE AN ACCOUNT? <a href="index.html" style="color:var(--red);font-weight:700">SIGN IN</a>
+        </div>
+      </div>
+
+      <div id="step-otp" style="display:none">
+        <div style="text-align:center;margin-bottom:1.5rem">
+          <div style="font-family:'Orbitron',sans-serif;font-size:0.9rem;color:var(--red);letter-spacing:2px;margin-bottom:0.5rem">EMAIL VERIFICATION</div>
+          <p id="otp-desc" style="font-size:0.8rem;color:var(--text-secondary);font-family:'Rajdhani',sans-serif">Enter the 6-digit code sent to your email</p>
+          <div style="margin-top:0.5rem;font-family:'Orbitron',sans-serif;font-size:0.72rem;color:var(--text-muted)">EXPIRES: <span id="otp-countdown" style="color:var(--red)">10:00</span></div>
+        </div>
+        <div class="login-error" id="otp-error" style="display:none">⚠ <span id="otp-error-msg"></span></div>
+        <div class="form-group">
+          <input class="form-input" type="text" id="otp-code" placeholder="[ _ _ _ _ _ _ ]" maxlength="6" inputmode="numeric"
+            style="text-align:center;font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:10px;padding:0.9rem"/>
+        </div>
+        <button class="btn-login" id="btn-verify">VERIFY & CREATE ACCOUNT</button>
+        <div style="text-align:center;margin-top:1rem;font-size:0.75rem;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px">
+          <button id="btn-resend" type="button" style="background:none;border:none;color:var(--red);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;font-weight:700">🔁 RESEND CODE</button>
+          &nbsp;|&nbsp;
+          <button id="btn-back" type="button" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;font-weight:600">← BACK</button>
+        </div>
+      </div>
+
+      <div id="step-success" style="display:none;text-align:center;padding:2rem 0">
+        <div style="font-size:3rem;margin-bottom:1rem;filter:drop-shadow(0 0 10px rgba(0,255,136,0.5))">✅</div>
+        <div style="font-family:'Orbitron',sans-serif;font-size:1rem;color:var(--success);letter-spacing:2px;margin-bottom:0.5rem">ACCESS GRANTED</div>
+        <p style="color:var(--text-secondary);font-family:'Rajdhani',sans-serif;margin-bottom:2rem;letter-spacing:0.5px">ACCOUNT CREATED SUCCESSFULLY. YOU MAY NOW SIGN IN.</p>
+        <a href="index.html" class="btn-login" style="display:block;text-align:center">PROCEED TO LOGIN</a>
+      </div>
+
+      <div class="login-footer" style="margin-top:1.5rem">◆ RUSI MOTORS CORPORATION © 2026 ◆</div>
+    </div>
+  </div>
+
+  <div class="login-brand">
+    <div class="login-brand-bg"></div>
+    <div class="login-brand-circuit"></div>
+    <div class="brand-main">
+      <div class="brand-logo-large">RUSI</div>
+      <div class="brand-logo-sub-text">MOTORS CORPORATION</div>
+      <span class="brand-moto-icon">🏍️</span>
+      <div class="brand-tagline">BUILT FOR FILIPINOS. <span>BUILT BY RUSI.</span></div>
+    </div>
+  </div>
+</div>
+<div class="toast-container" id="toast-container"></div>
+<script type="module">
+  import { auth }                      from './js/firebase-config.js';
+  import { registerUser, getBasePath } from './js/auth.js';
+  import { showToast }                 from './js/app.js';
+  import { onAuthStateChanged }        from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  onAuthStateChanged(auth,(user)=>{ if(user) window.location.replace(getBasePath()+'dashboard.html'); });
+
+  const SVC='YOUR_EMAILJS_SERVICE_ID', TPL='YOUR_EMAILJS_TEMPLATE_ID', PKEY='YOUR_EMAILJS_PUBLIC_KEY';
+  const OK='rusi_v2_reg_otp', OE='rusi_v2_reg_email', OX='rusi_v2_reg_expiry';
+  function genOTP(){ return Math.floor(100000+Math.random()*900000).toString(); }
+  async function sendOTP(email,name){
+    const otp=genOTP(); sessionStorage.setItem(OK,otp); sessionStorage.setItem(OE,email); sessionStorage.setItem(OX,Date.now()+10*60*1000);
+    await loadEJS(); await emailjs.send(SVC,TPL,{to_email:email,to_name:name||email.split('@')[0],otp_code:otp},PKEY);
+  }
+  function verifyOTP(code,email){
+    const saved=sessionStorage.getItem(OK),savedEmail=sessionStorage.getItem(OE),expiry=parseInt(sessionStorage.getItem(OX)||0);
+    if(!saved) return{valid:false,reason:'No OTP. Request again.'};
+    if(Date.now()>expiry) return{valid:false,reason:'OTP expired.'};
+    if(savedEmail!==email) return{valid:false,reason:'Email mismatch.'};
+    if(code.trim()!==saved) return{valid:false,reason:'Incorrect code.'};
+    [OK,OE,OX].forEach(k=>sessionStorage.removeItem(k)); return{valid:true};
+  }
+  function loadEJS(){
+    return new Promise((res,rej)=>{ if(window.emailjs){res();return;} const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=res;s.onerror=()=>rej(new Error('EmailJS failed'));document.head.appendChild(s); });
+  }
+
+  document.getElementById('toggle-pw1').addEventListener('click',()=>{ const p=document.getElementById('reg-password'),b=document.getElementById('toggle-pw1'); p.type=p.type==='text'?'password':'text'; b.textContent=p.type==='text'?'🙈':'👁'; });
+  document.getElementById('toggle-pw2').addEventListener('click',()=>{ const p=document.getElementById('reg-confirm'),b=document.getElementById('toggle-pw2'); p.type=p.type==='text'?'password':'text'; b.textContent=p.type==='text'?'🙈':'👁'; });
+  document.getElementById('otp-code').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').substring(0,6); });
+
+  function showErr(boxId,msgId,msg){ const b=document.getElementById(boxId); document.getElementById(msgId).textContent=msg; b.style.display='block'; }
+  function hideErr(boxId){ document.getElementById(boxId).style.display='none'; }
+
+  let pendingEmail='',pendingName='',pendingRole='',pendingPw='',countdownTimer;
+
+  document.getElementById('reg-form').addEventListener('submit',async e=>{
+    e.preventDefault(); hideErr('reg-error');
+    const name=document.getElementById('reg-name').value.trim(), email=document.getElementById('reg-email').value.trim();
+    const role=document.getElementById('reg-role').value, pw=document.getElementById('reg-password').value, confirm=document.getElementById('reg-confirm').value;
+    if(!name){showErr('reg-error','reg-error-msg','FULL NAME IS REQUIRED.');return;}
+    if(!email||!email.includes('@')){showErr('reg-error','reg-error-msg','VALID EMAIL IS REQUIRED.');return;}
+    if(!role){showErr('reg-error','reg-error-msg','PLEASE SELECT A ROLE.');return;}
+    if(!pw||pw.length<6){showErr('reg-error','reg-error-msg','PASSWORD MIN 6 CHARACTERS.');return;}
+    if(pw!==confirm){showErr('reg-error','reg-error-msg','PASSWORDS DO NOT MATCH.');return;}
+    const btn=document.getElementById('btn-register'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span> SENDING OTP…';
+    try{
+      await sendOTP(email,name); pendingEmail=email; pendingName=name; pendingRole=role; pendingPw=pw;
+      document.getElementById('step-register').style.display='none'; document.getElementById('step-otp').style.display='block';
+      document.getElementById('otp-desc').textContent=`CODE SENT TO: ${email}`;
+      startCountdown(600); showToast('OTP sent!','success');
+    }catch(err){ showErr('reg-error','reg-error-msg','FAILED TO SEND OTP: '+err.message); btn.disabled=false; btn.innerHTML='SEND OTP & CONTINUE'; }
+  });
+
+  document.getElementById('btn-verify').addEventListener('click',async()=>{
+    hideErr('otp-error');
+    const code=document.getElementById('otp-code').value.trim();
+    if(!code||code.length<6){showErr('otp-error','otp-error-msg','ENTER THE 6-DIGIT CODE.');return;}
+    const result=verifyOTP(code,pendingEmail);
+    if(!result.valid){showErr('otp-error','otp-error-msg',result.reason);return;}
+    const btn=document.getElementById('btn-verify'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span> CREATING ACCOUNT…';
+    try{
+      await registerUser(pendingEmail,pendingPw,pendingName,pendingRole);
+      clearInterval(countdownTimer); document.getElementById('step-otp').style.display='none'; document.getElementById('step-success').style.display='block';
+      showToast('Account created!','success');
+    }catch(err){
+      let msg=err.message; if(err.code==='auth/email-already-in-use') msg='EMAIL ALREADY REGISTERED.';
+      showErr('otp-error','otp-error-msg',msg); btn.disabled=false; btn.innerHTML='VERIFY & CREATE ACCOUNT';
+    }
+  });
+
+  document.getElementById('btn-resend').addEventListener('click',async()=>{
+    if(!pendingEmail)return;
+    try{ await sendOTP(pendingEmail,pendingName); startCountdown(600); document.getElementById('otp-code').value=''; showToast('New code sent!','success'); }
+    catch(err){ showToast('Failed: '+err.message,'error'); }
+  });
+
+  document.getElementById('btn-back').addEventListener('click',()=>{
+    clearInterval(countdownTimer); document.getElementById('step-otp').style.display='none'; document.getElementById('step-register').style.display='block';
+    const btn=document.getElementById('btn-register'); btn.disabled=false; btn.innerHTML='SEND OTP & CONTINUE';
+  });
+
+  function startCountdown(seconds){
+    clearInterval(countdownTimer); let remaining=seconds;
+    const el=document.getElementById('otp-countdown');
+    const tick=()=>{
+      if(remaining<=0){clearInterval(countdownTimer);if(el){el.textContent='EXPIRED';el.style.color='var(--danger)';}return;}
+      const m=Math.floor(remaining/60).toString().padStart(2,'0'),s=(remaining%60).toString().padStart(2,'0');
+      if(el) el.textContent=`${m}:${s}`; remaining--;
+    };
+    tick(); countdownTimer=setInterval(tick,1000);
+  }
+</script>
+</body>
+</html>

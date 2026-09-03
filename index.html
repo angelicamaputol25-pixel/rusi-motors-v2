@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RUSI Motors – Login</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏍️</text></svg>"/>
+</head>
+<body>
+<div class="login-page">
+
+  <!-- LEFT: Login Form -->
+  <div class="login-form-panel">
+    <div class="login-box">
+
+      <!-- RUSI Logo -->
+      <div class="login-logo-wrap">
+        <div class="login-logo-icon">🏍️</div>
+        <div class="login-brand-title">RUSI</div>
+        <div class="login-brand-sub">MOTORS CORPORATION</div>
+      </div>
+
+      <div id="step-login">
+        <div class="login-welcome">WELCOME BACK — <span>SIGN IN</span></div>
+
+        <div class="login-error" id="login-error">⚠ <span id="login-error-msg"></span></div>
+
+        <form id="login-form" novalidate>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="email" id="email" placeholder="USERNAME / EMAIL" autocomplete="email"/>
+              <span class="form-input-icon">👤</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-input-wrap">
+              <input class="form-input" type="password" id="password" placeholder="PASSWORD" autocomplete="current-password"/>
+              <span class="form-input-icon">🔒</span>
+              <button type="button" class="toggle-password" id="toggle-pw">👁</button>
+            </div>
+          </div>
+          <div class="form-options">
+            <label class="form-check" style="font-family:'Rajdhani',sans-serif;font-size:0.8rem;letter-spacing:0.5px">
+              <input type="checkbox" id="remember-me"/> REMEMBER ME
+            </label>
+            <a href="#" class="forgot-link">FORGOT PASSWORD?</a>
+          </div>
+          <button type="submit" class="btn-login" id="btn-login">LOGIN</button>
+        </form>
+
+        <div class="login-divider">SYSTEM ACCESS</div>
+
+        <div style="text-align:center;font-size:0.78rem;color:var(--text-secondary);font-family:'Rajdhani',sans-serif;letter-spacing:0.5px">
+          DON'T HAVE AN ACCOUNT?
+          <a href="register.html" style="color:var(--red);font-weight:700;margin-left:4px">SIGN UP</a>
+        </div>
+      </div>
+
+      <!-- OTP Step -->
+      <div id="step-otp" style="display:none">
+        <div style="text-align:center;margin-bottom:1.5rem">
+          <div style="font-family:'Orbitron',sans-serif;font-size:0.9rem;color:var(--red);letter-spacing:2px;margin-bottom:0.5rem">OTP VERIFICATION</div>
+          <p id="otp-sent-desc" style="font-size:0.8rem;color:var(--text-secondary);font-family:'Rajdhani',sans-serif">Enter the 6-digit code sent to your email</p>
+          <div style="margin-top:0.5rem;font-family:'Orbitron',sans-serif;font-size:0.75rem;color:var(--text-muted)">
+            EXPIRES: <span id="otp-countdown" style="color:var(--red)">10:00</span>
+          </div>
+        </div>
+        <div class="login-error" id="otp-error">⚠ <span id="otp-error-msg"></span></div>
+        <div class="form-group">
+          <input class="form-input" type="text" id="otp-input" placeholder="[ _ _ _ _ _ _ ]" maxlength="6" inputmode="numeric"
+            style="text-align:center;font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:10px;padding:0.9rem"/>
+        </div>
+        <button class="btn-login" id="btn-verify">VERIFY ACCESS</button>
+        <div style="text-align:center;margin-top:1rem;font-size:0.75rem;font-family:'Rajdhani',sans-serif;letter-spacing:0.5px">
+          <button id="btn-resend" type="button" style="background:none;border:none;color:var(--red);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.5px">🔁 RESEND CODE</button>
+          &nbsp;|&nbsp;
+          <button id="btn-back" type="button" style="background:none;border:none;color:var(--text-secondary);cursor:pointer;font-family:'Rajdhani',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.5px">← BACK</button>
+        </div>
+      </div>
+
+      <div class="login-footer" style="margin-top:1.5rem">
+        ◆ RUSI MOTORS CORPORATION © 2026 ◆<br/>
+        INVENTORY MANAGEMENT SYSTEM v2.0
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Motorcycle Showcase -->
+  <div class="login-brand">
+    <div class="login-brand-bg"></div>
+    <div class="login-brand-circuit"></div>
+    <div class="brand-main">
+      <div class="brand-logo-large">RUSI</div>
+      <div class="brand-logo-sub-text">MOTORS CORPORATION</div>
+      <span class="brand-moto-icon">🏍️</span>
+      <div class="brand-tagline">RIDE • INNOVATE • <span>EXCEL</span></div>
+      <div class="brand-divider-h"></div>
+      <div class="brand-status">
+        <div class="brand-status-item">
+          <div class="brand-status-val">532</div>
+          <div class="brand-status-lbl">Vehicles</div>
+        </div>
+        <div class="brand-status-item">
+          <div class="brand-status-val">1,248</div>
+          <div class="brand-status-lbl">Customers</div>
+        </div>
+        <div class="brand-status-item">
+          <div class="brand-status-val">98.6%</div>
+          <div class="brand-status-lbl">Efficiency</div>
+        </div>
+        <div class="brand-status-item">
+          <div style="display:flex;align-items:center;gap:4px">
+            <div class="status-indicator"></div>
+            <div class="brand-status-val" style="font-size:1rem">ONLINE</div>
+          </div>
+          <div class="brand-status-lbl">System Status</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-container" id="toast-container"></div>
+
+<script type="module">
+  import { auth, db }       from './js/firebase-config.js';
+  import { logActivity }    from './js/logs.js';
+  import { showToast }      from './js/app.js';
+  import { signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { doc, getDoc }    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  function getBasePath() { const p = window.location.pathname; return p.substring(0, p.lastIndexOf('/')+1); }
+
+  // OTP
+  const OK='rusi_v2_otp', OE='rusi_v2_otp_email', OX='rusi_v2_otp_expiry';
+  function genOTP() { return Math.floor(100000+Math.random()*900000).toString(); }
+  async function sendOTP(email, name) {
+    const otp=genOTP();
+    sessionStorage.setItem(OK,otp); sessionStorage.setItem(OE,email); sessionStorage.setItem(OX,Date.now()+10*60*1000);
+    await loadEJS();
+    await emailjs.send('YOUR_EMAILJS_SERVICE_ID','YOUR_EMAILJS_TEMPLATE_ID',{to_email:email,to_name:name||email.split('@')[0],otp_code:otp},'YOUR_EMAILJS_PUBLIC_KEY');
+  }
+  function verifyOTP(code,email) {
+    const saved=sessionStorage.getItem(OK),savedEmail=sessionStorage.getItem(OE),expiry=parseInt(sessionStorage.getItem(OX)||0);
+    if(!saved) return{valid:false,reason:'No OTP found.'};
+    if(Date.now()>expiry) return{valid:false,reason:'OTP expired.'};
+    if(savedEmail!==email) return{valid:false,reason:'Email mismatch.'};
+    if(code.trim()!==saved) return{valid:false,reason:'Incorrect code.'};
+    [OK,OE,OX].forEach(k=>sessionStorage.removeItem(k));
+    return{valid:true};
+  }
+  function loadEJS() {
+    return new Promise((res,rej)=>{
+      if(window.emailjs){res();return;}
+      const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';s.onload=res;s.onerror=()=>rej(new Error('EmailJS failed'));document.head.appendChild(s);
+    });
+  }
+
+  let loggingIn=false;
+  onAuthStateChanged(auth,(user)=>{ if(user&&!loggingIn) window.location.replace(getBasePath()+'dashboard.html'); });
+
+  const loginError=document.getElementById('login-error'), loginErrMsg=document.getElementById('login-error-msg');
+  const otpError=document.getElementById('otp-error'), otpErrMsg=document.getElementById('otp-error-msg');
+  let currentEmail='', currentName='', countdownTimer;
+
+  document.getElementById('toggle-pw').addEventListener('click',()=>{
+    const pw=document.getElementById('password'),btn=document.getElementById('toggle-pw');
+    pw.type=pw.type==='text'?'password':'text'; btn.textContent=pw.type==='text'?'🙈':'👁';
+  });
+
+  document.getElementById('otp-input').addEventListener('input',e=>{ e.target.value=e.target.value.replace(/\D/g,'').substring(0,6); });
+
+  document.getElementById('login-form').addEventListener('submit',async e=>{
+    e.preventDefault(); loginError.classList.remove('show');
+    const email=document.getElementById('email').value.trim(), password=document.getElementById('password').value;
+    if(!email||!password){ loginErrMsg.textContent='Please fill in all fields.'; loginError.classList.add('show'); return; }
+    const btn=document.getElementById('btn-login'); btn.disabled=true; btn.innerHTML='<span class="spinner"></span> AUTHENTICATING…';
+    try{
+      loggingIn=true;
+      const cred=await signInWithEmailAndPassword(auth,email,password);
+      currentEmail=email; currentName=cred.user.displayName||email.split('@')[0];
+      let role='Admin';
+      try{ const snap=await getDoc(doc(db,'users',cred.user.uid)); if(snap.exists()) role=snap.data().role||'Admin'; }catch(e){}
+      sessionStorage.setItem('rusi_v2_role',role);
+      logActivity('AUTH',`Logged in: ${email} [${role}]`,cred.user.uid).catch(()=>{});
+      if(role==='Admin'){ window.location.replace(getBasePath()+'dashboard.html'); return; }
+      btn.innerHTML='<span class="spinner"></span> SENDING OTP…';
+      try{
+        await sendOTP(email,currentName);
+        document.getElementById('step-login').style.display='none';
+        document.getElementById('step-otp').style.display='block';
+        document.getElementById('otp-sent-desc').textContent=`CODE SENT TO: ${email}`;
+        startCountdown(600); showToast('OTP sent! Check your email.','success');
+      }catch(otpErr){ window.location.replace(getBasePath()+'dashboard.html'); }
+    }catch(err){
+      loggingIn=false;
+      let msg='INVALID CREDENTIALS.';
+      if(err.code==='auth/too-many-requests') msg='TOO MANY ATTEMPTS. TRY LATER.';
+      if(err.code==='auth/user-not-found')    msg='NO ACCOUNT FOUND.';
+      if(err.code==='auth/wrong-password')    msg='WRONG PASSWORD.';
+      if(err.code==='auth/invalid-credential')msg='INVALID EMAIL OR PASSWORD.';
+      loginErrMsg.textContent=msg; loginError.classList.add('show');
+      btn.disabled=false; btn.innerHTML='LOGIN';
+    }
+  });
+
+  document.getElementById('btn-verify').addEventListener('click',()=>{
+    otpError.classList.remove('show');
+    const result=verifyOTP(document.getElementById('otp-input').value.trim(),currentEmail);
+    if(!result.valid){ otpErrMsg.textContent=result.reason; otpError.classList.add('show'); return; }
+    clearInterval(countdownTimer); window.location.replace(getBasePath()+'dashboard.html');
+  });
+
+  document.getElementById('btn-resend').addEventListener('click',async()=>{
+    if(!currentEmail)return;
+    try{ await sendOTP(currentEmail,currentName); startCountdown(600); document.getElementById('otp-input').value=''; showToast('New code sent!','success'); }
+    catch(err){ showToast('Failed: '+err.message,'error'); }
+  });
+
+  document.getElementById('btn-back').addEventListener('click',()=>{
+    clearInterval(countdownTimer);
+    document.getElementById('step-otp').style.display='none';
+    document.getElementById('step-login').style.display='block';
+    const btn=document.getElementById('btn-login'); btn.disabled=false; btn.innerHTML='LOGIN';
+  });
+
+  function startCountdown(seconds){
+    clearInterval(countdownTimer); let remaining=seconds;
+    const el=document.getElementById('otp-countdown');
+    const tick=()=>{
+      if(remaining<=0){clearInterval(countdownTimer);if(el){el.textContent='EXPIRED';el.style.color='var(--danger)';}return;}
+      const m=Math.floor(remaining/60).toString().padStart(2,'0'),s=(remaining%60).toString().padStart(2,'0');
+      if(el) el.textContent=`${m}:${s}`; remaining--;
+    };
+    tick(); countdownTimer=setInterval(tick,1000);
+  }
+</script>
+</body>
+</html>
