@@ -139,7 +139,7 @@
     const otp=genOTP();
     sessionStorage.setItem(OK,otp); sessionStorage.setItem(OE,email); sessionStorage.setItem(OX,Date.now()+10*60*1000);
     await loadEJS();
-    await emailjs.send('YOUR_EMAILJS_SERVICE_ID','YOUR_EMAILJS_TEMPLATE_ID',{to_email:email,to_name:name||email.split('@')[0],otp_code:otp},'YOUR_EMAILJS_PUBLIC_KEY');
+    await emailjs.send('rusi_v2_service','template_tpbst6o',{to_email:email,to_name:name||email.split('@')[0],otp_code:otp},'HDXE9T4vvUZKjWJyi');
   }
   function verifyOTP(code,email) {
     const saved=sessionStorage.getItem(OK),savedEmail=sessionStorage.getItem(OE),expiry=parseInt(sessionStorage.getItem(OX)||0);
